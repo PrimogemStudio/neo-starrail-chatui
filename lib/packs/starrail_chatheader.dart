@@ -42,10 +42,7 @@ class ChatHeaderState extends State<ChatHeader> with TickerProviderStateMixin {
             curve: Curves.easeOutExpo,
             reverseCurve: StaticCurve()));
     widget.mainAnimation!.forward();
-    updateText(() {
-      widget.replyer = "聊天频道";
-      widget.withDesc = false;
-    });
+    updateText("登录至服务器", null, 700);
   }
 
   @override
@@ -58,12 +55,16 @@ class ChatHeaderState extends State<ChatHeader> with TickerProviderStateMixin {
     widget.replyerDesc = oldWidget.replyerDesc;
   }
 
-  void updateText(Function t) async {
+  void updateText(String replyer, String? replyerDesc, int s) async {
     var c = widget.mainAnimation!;
 
     c.reverse();
-    Future.delayed(const Duration(milliseconds: 700), () {
-      setState(() => t());
+    Future.delayed(Duration(milliseconds: s), () {
+      setState(() {
+        widget.replyer = replyer;
+        widget.withDesc = replyerDesc != null;
+        if (widget.withDesc) widget.replyerDesc = replyerDesc!;
+      });
       c.forward();
     });
   }

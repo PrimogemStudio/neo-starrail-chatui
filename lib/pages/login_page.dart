@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:neo_starrail_chatui/packs/starrail_page.dart';
 
 import '../packs/starrail_button.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatefulWidget implements NamedPage {
   const LoginPage({super.key});
 
   @override
   State<StatefulWidget> createState() => LoginPageState();
+
+  @override
+  String getName() {
+    return "登录至服务器";
+  }
 }
 
 class LoginPageState extends State<LoginPage> {
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +42,7 @@ class LoginPageState extends State<LoginPage> {
                 style: srStyle,
                 child: const Text('登录'),
                 onPressed: () async {
+                  Navigator.of(context).pushReplacementNamed('/second');
                   /*await socketConnect();
                 handlePacker(RecvAvatarPacket, AvatarManager.handle);
                 socketSend(LoginPacket(
