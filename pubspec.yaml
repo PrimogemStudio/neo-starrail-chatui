@@ -58,6 +58,10 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  assets:
+    - assets/avatars/hackermdch.png
+    - assets/avatars/jack253-png.png
+
   fonts:
     - family: StarRailFont_bundle
       fonts:

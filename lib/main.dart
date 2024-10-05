@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:neo_starrail_chatui/packs/starrail_colors.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
+import 'package:neo_starrail_chatui/packs/starrail_list.dart';
+import 'package:neo_starrail_chatui/packs/starrail_message_line.dart';
 
 void main() {
   timeDilation = 1.5;
@@ -33,11 +35,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
+  GlobalKey<StarRailListState> listKey = GlobalKey();
   void _incrementCounter() {
     setState(() {
-      _counter++;
+      listKey.currentState!.pushMsg(ListTile(title: StarRailMessageLine(
+          avatar: Image.asset("assets/avatars/jack253-png.png",
+              width: 50.0, height: 50.0),
+          self: true,
+          username: "Coder2",
+          text: "test!",
+          msgResv: false,
+          onLoadComplete: () {
+            setState(() {
+              listKey.currentState!.scrollToBottom();
+            });
+          })));
     });
   }
 
@@ -48,20 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
+      body: StarRailList(key: listKey, innerPanel: Container()),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
