@@ -33,7 +33,7 @@ class ChatChannelPageState extends State<ChatChannelPage> {
     super.initState();
 
     for (var a in widget.containerState.widget.userObjs) {
-      listKey.currentState!.pushMsg(ListTile(
+      listKey.currentState!.appendItem(ListTile(
         minVerticalPadding: 0,
         contentPadding: EdgeInsets.zero,
         title: a
@@ -49,23 +49,31 @@ class ChatChannelPageState extends State<ChatChannelPage> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Padding(padding: const EdgeInsets.only(left: 30, right: 30), child: StarRailList(key: listKey, innerPanel: Container(), flatted: true)), floatingActionButton: FloatingActionButton(onPressed: () {
-      widget.containerState.widget.userObjs.add(StarRailUserObject(
-          avatar: Image.asset("assets/avatars/jack253-png.png", width: 50, height: 50),
-          title: "Coder2",
-          subtitle: "Test!",
-          hasNewMsg: Random.secure().nextInt(2) % 2 == 0
-      ));
+    return Scaffold(body: Padding(padding: const EdgeInsets.only(left: 30, right: 30), child: StarRailList(key: listKey, innerPanel: Container(), flatted: true)), floatingActionButton: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      verticalDirection: VerticalDirection.up,
+      children: [
+        FloatingActionButton(onPressed: () {
+          widget.containerState.widget.userObjs.add(StarRailUserObject(
+              avatar: Image.asset("assets/avatars/jack253-png.png", width: 50, height: 50),
+              title: "Coder2",
+              subtitle: "Test!",
+              hasNewMsg: Random.secure().nextInt(2) % 2 == 0
+          ));
 
-      listKey.currentState!.removeAll();
-
-      for (var a in widget.containerState.widget.userObjs) {
-        listKey.currentState!.pushMsg(ListTile(
-            minVerticalPadding: 0,
-            contentPadding: EdgeInsets.zero,
-            title: a
-        ));
-      }
-    }));
+          listKey.currentState!.appendItem(ListTile(
+              minVerticalPadding: 0,
+              contentPadding: EdgeInsets.zero,
+              title: widget.containerState.widget.userObjs.last
+          ));
+        }), 
+        FloatingActionButton(onPressed: () {
+          int i = widget.containerState.widget.userObjs.length - 1;
+          widget.containerState.widget.userObjs.removeAt(i);
+          listKey.currentState!.removeItemAt(i);
+        })
+      ]
+    ));
   }
 }

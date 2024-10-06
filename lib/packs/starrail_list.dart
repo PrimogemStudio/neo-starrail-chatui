@@ -38,20 +38,21 @@ class StarRailListState extends State<StarRailList> {
   double _schHeight = 0;
   double _po = 1;
 
-  void pushMsg(ListTile l) {
+  void appendItem(ListTile l) {
     setState(() {
       list.add(l);
       key.currentState!.insertItem(list.length - 1);
       scrollToBottom();
     });
   }
-  
-  void removeAll() {
+
+  void removeItemAt(int idx) {
     setState(() {
-      list.clear();
-      key.currentState!.removeAllItems((BuildContext context, Animation<double> animation) {
+      if (idx >= 0) list.removeAt(idx);
+      key.currentState!.removeItem(idx, (BuildContext context, Animation<double> animation) {
         return Container();
       });
+      scrollToBottom();
     });
   }
 
