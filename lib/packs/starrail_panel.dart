@@ -73,7 +73,6 @@ class StarRailPanelState extends State<StarRailPanel> with TickerProviderStateMi
   Widget build(BuildContext context) {
     var i = Container(height: panelHeight, color: uiPanelBack, child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       Container(
-        width: 2147483647,
         height: 4,
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,

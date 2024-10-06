@@ -7,12 +7,14 @@ import 'package:neo_starrail_chatui/packs/starrail_rounded_rect.dart';
 import 'starrail_colors.dart';
 
 class StarRailList extends StatefulWidget {
-  const StarRailList({
+  StarRailList({
     super.key,
-    required this.innerPanel
+    required this.innerPanel,
+    required this.flatted
   });
 
   final Widget? innerPanel;
+  bool flatted;
 
   @override
   State<StatefulWidget> createState() => StarRailListState();
@@ -125,7 +127,7 @@ class StarRailListState extends State<StarRailList> {
             width: 4,
             height: _schHeight,
             radius: 0,
-            color: uiViewBarMain),
+            color: widget.flatted ? Colors.transparent : uiViewBarMain),
         onPointerMove: (e) {
           targetOff = (e.localPosition.dy - dragOff!.dy) * _po + currOff;
         },
@@ -145,7 +147,7 @@ class StarRailListState extends State<StarRailList> {
         width: 4,
         height: _height,
         radius: 0,
-        color: uiViewBarBg
+        color: widget.flatted ? Colors.transparent : uiViewBarBg
     );
 
     final mainBar = Padding(
@@ -212,12 +214,10 @@ class StarRailListState extends State<StarRailList> {
         mainBar,
         Column(children: [
           Container(
-            width: 2147483647,
             height: 1,
             color: uiViewSplit,
           ),
           Container(
-            width: 2147483647,
             height: 10,
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
@@ -225,8 +225,8 @@ class StarRailListState extends State<StarRailList> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    uiSurfaceColor,
-                    uiSurfaceColorTrans
+                    widget.flatted ? Colors.transparent : uiSurfaceColor,
+                    widget.flatted ? Colors.transparent : uiSurfaceColorTrans
                   ]),
             ),
           ),

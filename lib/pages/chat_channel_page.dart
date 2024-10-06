@@ -21,7 +21,7 @@ class ChatChannelPageState extends State<ChatChannelPage> {
   GlobalKey<StarRailListState> listKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Padding(padding: const EdgeInsets.only(left: 20, right: 20), child: StarRailList(key: listKey, innerPanel: Container())), floatingActionButton: FloatingActionButton(onPressed: () {
+    return Scaffold(body: Padding(padding: const EdgeInsets.only(left: 30, right: 30), child: StarRailList(key: listKey, innerPanel: Container(), flatted: true)), floatingActionButton: FloatingActionButton(onPressed: () {
       listKey.currentState!.pushMsg(ListTile(
           minVerticalPadding: 0,
           contentPadding: EdgeInsets.zero,
