@@ -25,24 +25,24 @@ class StarRailUserObject extends StatefulWidget implements AnimatableObj {
 class StarRailUserObjectState extends State<StarRailUserObject> {
   @override
   Widget build(BuildContext context) {
-    var m = Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Expanded(child: Row(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
-        widget.avatar,
-        Expanded(child: Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(padding: const EdgeInsets.only(top: 6), child: Text(widget.title)),
-                  Text(widget.subtitle, style: TextStyle(color: uiMsgSrc))
-                ])))
-      ])),
-      const Icon(Icons.arrow_forward_ios_rounded, size: 18)
+    var lft = Expanded(child: Row(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
+      widget.avatar,
+      Expanded(child: Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(padding: const EdgeInsets.only(top: 6), child: Text(widget.title)),
+                Text(widget.subtitle, style: TextStyle(color: uiMsgSrc))
+              ])))
+    ]));
+    var ri = const Icon(Icons.arrow_forward_ios_rounded, size: 16);
+    var m = Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+      Expanded(child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [lft])),
+      Expanded(child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [ri])),
     ]);
     var b = OutlinedButton(
-        onPressed: () {
-          Navigator.of(context).pushReplacementNamed('/${Random.secure().nextInt(200)}');
-        },
+        onPressed: () {},
         style: srStyleList,
         child: FadeTransition(
           opacity: widget.animation!,
