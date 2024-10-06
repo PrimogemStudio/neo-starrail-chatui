@@ -59,7 +59,7 @@ class ChatChannelPageState extends State<ChatChannelPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       verticalDirection: VerticalDirection.up,
       children: [
-        FloatingActionButton(onPressed: () {
+        FloatingActionButton(tooltip: "新增 Channel", onPressed: () {
           widget.containerState.widget.userObjs.add(StarRailUserObject(
               avatar: Image.asset("assets/avatars/jack253-png.png", width: 50, height: 50),
               title: "Coder2",
@@ -73,7 +73,7 @@ class ChatChannelPageState extends State<ChatChannelPage> {
               title: widget.containerState.widget.userObjs.last
           ));
         }), 
-        FloatingActionButton(onPressed: () {
+        FloatingActionButton(tooltip: "删除 Channel", onPressed: () {
           int i = widget.containerState.widget.userObjs.length - 1;
           widget.containerState.widget.userObjs.removeAt(i);
           listKey.currentState!.removeItemAt(i);

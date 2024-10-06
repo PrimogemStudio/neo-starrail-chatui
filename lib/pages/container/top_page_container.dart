@@ -22,6 +22,8 @@ class TopPageContainerState extends State<TopPageContainer> {
   GlobalKey<ChatHeaderState> headerKey = GlobalKey();
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
+  Map<String, ChatPage> pages = {};
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,8 +42,12 @@ class TopPageContainerState extends State<TopPageContainer> {
           if (settings.name == "/") { builder = (BuildContext context) => LoginPage(containerState: this); }
           else if (settings.name == "/channels") { builder = (BuildContext context) => ChatChannelPage(containerState: this); }
           else if (settings.name!.startsWith("/chat/uid/")) {
-            print(settings.name!.replaceAll("/chat/uid/", ""));
-            builder = (BuildContext context) => const ChatPage();
+            var i = settings.name!.replaceAll("/chat/uid/", "");
+            if (!pages.containsKey(i)) {
+              pages[i] = const ChatPage();
+            }
+
+            builder = (BuildContext context) => pages[i]!;
           }
           else { throw Exception("No page named ${settings.name}"); }
 
@@ -50,7 +56,7 @@ class TopPageContainerState extends State<TopPageContainer> {
             headerKey.currentState!.updateText((i as NamedPage).getName(), (i as NamedPage).getDesc(), 500);
           }
 
-          return genBuilder(builder, settings.name == "/channels" ? 0.0 : 1.0, 250);
+          return genBuilder(builder, settings.name == "/channels" ? 0.0 : 1.0, 300);
         },
       )
     );

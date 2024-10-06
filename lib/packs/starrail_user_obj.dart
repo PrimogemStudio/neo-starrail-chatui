@@ -61,7 +61,7 @@ class StarRailUserObjectState extends State<StarRailUserObject> {
     ]);
     var b = TextButton(
         onPressed: () {
-          Navigator.of(context).pushReplacementNamed("/chat/uid/0");
+          Navigator.of(context).pushNamed("/chat/uid/0");
         },
         style: srStyleList,
         child: FadeTransition(
