@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-PageRouteBuilder genBuilder(WidgetBuilder builder) {
+PageRouteBuilder genBuilder(WidgetBuilder builder, double d, int s) {
   return PageRouteBuilder(
-      transitionDuration: const Duration(milliseconds: 350),
+      transitionDuration: Duration(milliseconds: s),
       pageBuilder:
           (context, animation, secondaryAnimation) => builder(context),
       transitionsBuilder:
@@ -16,7 +16,7 @@ PageRouteBuilder genBuilder(WidgetBuilder builder) {
                 .animate(a),
             child: SlideTransition(
                 position: Tween<Offset>(
-                    begin: const Offset(1.0, 0.0),
+                    begin: Offset(d, 0.0),
                     end: const Offset(0.0, 0.0))
                     .animate(a),
                 child: child));

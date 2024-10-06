@@ -47,10 +47,10 @@ class TopPageContainerState extends State<TopPageContainer> {
 
           var i = builder(context);
           if (i is NamedPage && headerKey.currentState != null) {
-            headerKey.currentState!.updateText((i as NamedPage).getName(), (i as NamedPage).getDesc(), 600);
+            headerKey.currentState!.updateText((i as NamedPage).getName(), (i as NamedPage).getDesc(), 500);
           }
 
-          return genBuilder(builder);
+          return genBuilder(builder, settings.name == "/channels" ? 0.0 : 1.0, 250);
         },
       )
     );
