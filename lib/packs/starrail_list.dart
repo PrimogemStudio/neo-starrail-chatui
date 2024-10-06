@@ -48,10 +48,11 @@ class StarRailListState extends State<StarRailList> {
 
   void removeItemAt(int idx) {
     setState(() {
+      var i = list[idx];
       if (idx >= 0) list.removeAt(idx);
       key.currentState!.removeItem(idx, (BuildContext context, Animation<double> animation) {
-        return Container();
-      });
+        return FadeTransition(opacity: animation, child: i);
+      }, duration: const Duration(milliseconds: 100));
       scrollToBottom();
     });
   }
