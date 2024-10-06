@@ -43,7 +43,7 @@ class TopPageContainerState extends State<TopPageContainer> {
           }
 
           var i = builder(context);
-          if (i is NamedPage) {
+          if (i is NamedPage && headerKey.currentState != null) {
             headerKey.currentState!.updateText((i as NamedPage).getName(), null, 600);
           }
 

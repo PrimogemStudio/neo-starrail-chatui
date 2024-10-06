@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 PageRouteBuilder genBuilder(WidgetBuilder builder) {
   return PageRouteBuilder(
-      transitionDuration: const Duration(milliseconds: 150),
+      transitionDuration: const Duration(milliseconds: 550),
       pageBuilder:
           (context, animation, secondaryAnimation) => builder(context),
       transitionsBuilder:

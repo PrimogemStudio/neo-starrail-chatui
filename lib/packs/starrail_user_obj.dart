@@ -23,7 +23,10 @@ class StarRailUserObject extends StatefulWidget implements AnimatableObj {
 class StarRailUserObjectState extends State<StarRailUserObject> {
   @override
   Widget build(BuildContext context) {
-    return TextButton(onPressed: () {}, style: srStyle, child: FadeTransition(
+    return Padding(padding: const EdgeInsets.only(right: 20), child: OutlinedButton(
+        onPressed: () {},
+        style: srStyleList,
+        child: FadeTransition(
         opacity: widget.animation!,
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Expanded(child: Row(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -38,6 +41,6 @@ class StarRailUserObjectState extends State<StarRailUserObject> {
                     ])))
           ])),
           const Icon(Icons.arrow_forward_ios_rounded, size: 22)
-        ])));
+        ]))));
   }
 }
