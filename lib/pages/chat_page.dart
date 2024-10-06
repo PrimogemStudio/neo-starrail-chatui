@@ -4,8 +4,13 @@ import 'package:neo_starrail_chatui/packs/starrail_message_line.dart';
 import 'package:neo_starrail_chatui/packs/starrail_page.dart';
 import 'package:neo_starrail_chatui/packs/starrail_panel.dart';
 
-class ChatPage extends StatefulWidget implements NamedPage {
-  const ChatPage({super.key});
+class ChatPage extends StatelessWidget implements NamedPage {
+  GlobalKey<StarRailListState> listKey = GlobalKey();
+  GlobalKey<StarRailPanelState> panelState = GlobalKey();
+
+  Widget? target;
+
+  ChatPage({super.key});
 
   @override
   String getName() {
@@ -18,15 +23,12 @@ class ChatPage extends StatefulWidget implements NamedPage {
   }
 
   @override
-  State<StatefulWidget> createState() => ChatPageState();
-}
-
-class ChatPageState extends State<ChatPage> {
-  GlobalKey<StarRailListState> listKey = GlobalKey();
-  GlobalKey<StarRailPanelState> panelState = GlobalKey();
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(body: StarRailList(key: listKey, innerPanel: StarRailPanel(key: panelState, func: () {
+    if (target != null) {
+      return target!;
+    }
+
+    var i = Scaffold(body: StarRailList(key: listKey, innerPanel: StarRailPanel(key: panelState, func: () {
       listKey.currentState!.appendItem(ListTile(
         title: StarRailMessageLine(
             avatar: Image.asset("assets/avatars/jack253-png.png", width: 50, height: 50),
@@ -49,5 +51,7 @@ class ChatPageState extends State<ChatPage> {
             ]
         )
     );
+    target = i;
+    return i;
   }
 }

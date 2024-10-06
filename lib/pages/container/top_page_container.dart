@@ -44,7 +44,7 @@ class TopPageContainerState extends State<TopPageContainer> {
           else if (settings.name!.startsWith("/chat/uid/")) {
             var i = settings.name!.replaceAll("/chat/uid/", "");
             if (!pages.containsKey(i)) {
-              pages[i] = const ChatPage();
+              pages[i] = ChatPage();
             }
 
             builder = (BuildContext context) => pages[i]!;
