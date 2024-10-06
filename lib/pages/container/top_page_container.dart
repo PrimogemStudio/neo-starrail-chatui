@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:neo_starrail_chatui/packs/starrail_button.dart';
 import 'package:neo_starrail_chatui/packs/starrail_page.dart';
 import 'package:neo_starrail_chatui/packs/starrail_page_route.dart';
 import 'package:neo_starrail_chatui/pages/chat_channel_page.dart';
@@ -8,9 +7,12 @@ import 'package:neo_starrail_chatui/pages/login_page.dart';
 
 import '../../packs/starrail_chatheader.dart';
 import '../../packs/starrail_colors.dart';
+import '../../packs/starrail_user_obj.dart';
 
 class TopPageContainer extends StatefulWidget {
-  const TopPageContainer({super.key});
+  TopPageContainer({super.key});
+
+  List<StarRailUserObject> userObjs = <StarRailUserObject>[];
 
   @override
   State<StatefulWidget> createState() => TopPageContainerState();
@@ -36,7 +38,7 @@ class TopPageContainerState extends State<TopPageContainer> {
           WidgetBuilder builder;
 
           if (settings.name == "/") { builder = (BuildContext context) => LoginPage(containerState: this); }
-          else if (settings.name == "/channels") { builder = (BuildContext context) => const ChatChannelPage(); }
+          else if (settings.name == "/channels") { builder = (BuildContext context) => ChatChannelPage(containerState: this); }
           else if (settings.name!.startsWith("/chat/uid/")) {
             print(settings.name!.replaceAll("/chat/uid/", ""));
             builder = (BuildContext context) => const ChatPage();

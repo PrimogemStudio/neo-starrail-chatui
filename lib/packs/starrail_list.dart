@@ -45,6 +45,15 @@ class StarRailListState extends State<StarRailList> {
       scrollToBottom();
     });
   }
+  
+  void removeAll() {
+    setState(() {
+      list.clear();
+      key.currentState!.removeAllItems((BuildContext context, Animation<double> animation) {
+        return Container();
+      });
+    });
+  }
 
   void scrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((t) {
@@ -114,6 +123,9 @@ class StarRailListState extends State<StarRailList> {
       key: key,
       initialItemCount: list.length,
       itemBuilder: (context, index, animation) {
+        if (index >= list.length) {
+          return Container();
+        }
         if ((list[index] as ListTile).title is AnimatableObj) {
           ((list[index] as ListTile).title as AnimatableObj).setAnimation(animation);
         }
