@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:neo_starrail_chatui/packs/starrail_dialog.dart';
 import 'package:neo_starrail_chatui/packs/starrail_list.dart';
 import 'package:neo_starrail_chatui/packs/starrail_message_line.dart';
 import 'package:neo_starrail_chatui/packs/starrail_page.dart';
 import 'package:neo_starrail_chatui/packs/starrail_panel.dart';
+import 'package:neo_starrail_chatui/pages/container/top_page_container.dart';
 
 class ChatPage extends StatelessWidget implements NamedPage {
   GlobalKey<StarRailListState> listKey = GlobalKey();
@@ -10,7 +12,9 @@ class ChatPage extends StatelessWidget implements NamedPage {
 
   Widget? target;
 
-  ChatPage({super.key});
+  ChatPage({super.key, required this.containerState});
+
+  TopPageContainerState containerState;
 
   @override
   String getName() {
@@ -47,6 +51,11 @@ class ChatPage extends StatelessWidget implements NamedPage {
               }),
               FloatingActionButton(tooltip: "打开 Panel", onPressed: () {
                 panelState.currentState!.openPanel();
+              }),
+              FloatingActionButton(tooltip: "打开对话框", onPressed: () {
+                showSrDialog(context, (v) {
+                  containerState.updateBlur(v);
+                });
               })
             ]
         )

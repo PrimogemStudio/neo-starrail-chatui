@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:neo_starrail_chatui/packs/starrail_page.dart';
 import 'package:neo_starrail_chatui/packs/starrail_page_route.dart';
@@ -24,9 +26,11 @@ class TopPageContainerState extends State<TopPageContainer> {
 
   Map<String, ChatPage> pages = {};
 
+  double blursize = 0;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    var i = Scaffold(
       appBar: AppBar(
           backgroundColor: uiSurfaceColor,
           shadowColor: Colors.transparent,
@@ -44,7 +48,7 @@ class TopPageContainerState extends State<TopPageContainer> {
           else if (settings.name!.startsWith("/chat/uid/")) {
             var i = settings.name!.replaceAll("/chat/uid/", "");
             if (!pages.containsKey(i)) {
-              pages[i] = ChatPage();
+              pages[i] = ChatPage(containerState: this);
             }
 
             builder = (BuildContext context) => pages[i]!;
@@ -60,6 +64,14 @@ class TopPageContainerState extends State<TopPageContainer> {
         },
       )
     );
+
+    return ImageFiltered(imageFilter: ImageFilter.blur(sigmaX: blursize, sigmaY: blursize), child: i);
+  }
+
+  void updateBlur(double v) {
+    setState(() {
+      blursize = v;
+    });
   }
 
   void loginReq(String server, String name, String password) {
