@@ -42,7 +42,7 @@ class ChatHeaderState extends State<ChatHeader> with TickerProviderStateMixin {
             curve: Curves.easeOutExpo,
             reverseCurve: StaticCurve()));
     widget.mainAnimation!.forward();
-    updateText("登录至服务器", null, 700);
+    updateText("登录至服务器", null, 300);
   }
 
   @override
@@ -57,6 +57,7 @@ class ChatHeaderState extends State<ChatHeader> with TickerProviderStateMixin {
 
   void updateText(String replyer, String? replyerDesc, int s) async {
     var c = widget.mainAnimation!;
+    c.stop(canceled: true);
 
     c.reverse();
     Future.delayed(Duration(milliseconds: s), () {
