@@ -3,6 +3,7 @@ import 'package:neo_starrail_chatui/packs/starrail_button.dart';
 import 'package:neo_starrail_chatui/packs/starrail_page.dart';
 import 'package:neo_starrail_chatui/packs/starrail_page_route.dart';
 import 'package:neo_starrail_chatui/pages/chat_channel_page.dart';
+import 'package:neo_starrail_chatui/pages/chat_page.dart';
 import 'package:neo_starrail_chatui/pages/login_page.dart';
 
 import '../../packs/starrail_chatheader.dart';
@@ -17,6 +18,8 @@ class TopPageContainer extends StatefulWidget {
 
 class TopPageContainerState extends State<TopPageContainer> {
   GlobalKey<ChatHeaderState> headerKey = GlobalKey();
+  GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,23 +31,21 @@ class TopPageContainerState extends State<TopPageContainer> {
           scrolledUnderElevation: 0,
           surfaceTintColor: Colors.transparent),
       body: Navigator(
-        key: GlobalKey<NavigatorState>(),
+        key: navigatorKey,
         onGenerateRoute: (RouteSettings settings) {
           WidgetBuilder builder;
-          switch (settings.name) {
-            case '/':
-              builder = (BuildContext context) => LoginPage(containerState: this);
-              break;
-            case '/second':
-              builder = (BuildContext context) => const ChatChannelPage();
-              break;
-            default:
-              throw Exception('Invalid route: ${settings.name}');
+
+          if (settings.name == "/") { builder = (BuildContext context) => LoginPage(containerState: this); }
+          else if (settings.name == "/channels") { builder = (BuildContext context) => const ChatChannelPage(); }
+          else if (settings.name!.startsWith("/chat/uid/")) {
+            print(settings.name!.replaceAll("/chat/uid/", ""));
+            builder = (BuildContext context) => const ChatPage();
           }
+          else { throw Exception("No page named ${settings.name}"); }
 
           var i = builder(context);
           if (i is NamedPage && headerKey.currentState != null) {
-            headerKey.currentState!.updateText((i as NamedPage).getName(), null, 600);
+            headerKey.currentState!.updateText((i as NamedPage).getName(), (i as NamedPage).getDesc(), 600);
           }
 
           return genBuilder(builder);
@@ -55,5 +56,6 @@ class TopPageContainerState extends State<TopPageContainer> {
 
   void loginReq(String server, String name, String password) {
     print("$server $name $password");
+    navigatorKey.currentState!.pushReplacementNamed('/channels');
   }
 }

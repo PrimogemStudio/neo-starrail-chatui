@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:neo_starrail_chatui/packs/starrail_animatable.dart';
+import 'package:neo_starrail_chatui/packs/starrail_avatar.dart';
 import 'package:neo_starrail_chatui/packs/starrail_colors.dart';
 import 'dart:math';
 
@@ -82,10 +83,6 @@ class StarRailMessageLineState extends State<StarRailMessageLine> with TickerPro
 
   @override
   Widget build(BuildContext context) {
-    final avatarr = ClipRRect(
-      borderRadius: const BorderRadius.all(Radius.circular(30)),
-      child: widget.avatar,
-    );
     final msgMain = Card(
         margin: const EdgeInsets.only(top: 10),
         shadowColor: Colors.transparent,
@@ -153,7 +150,7 @@ class StarRailMessageLineState extends State<StarRailMessageLine> with TickerPro
                 shadowColor: Colors.transparent,
                 margin: const EdgeInsets.fromLTRB(15, 8, 15, 8),
                 child: Container(
-                  constraints: BoxConstraints(minWidth: 10),
+                  constraints: const BoxConstraints(minWidth: 10),
                   child: Text(
                     widget.text,
                     style: const TextStyle(color: Colors.black, fontSize: 16.0),
@@ -173,7 +170,7 @@ class StarRailMessageLineState extends State<StarRailMessageLine> with TickerPro
                         curve: Curves.easeOutBack,
                         reverseCurve: Curves.easeOutBack)),
                 child:
-                    FadeTransition(opacity: widget.animation!, child: avatarr)),
+                    FadeTransition(opacity: widget.animation!, child: StarRailAvatar(avatar: widget.avatar))),
             Expanded(
                 child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

@@ -2,16 +2,18 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:neo_starrail_chatui/packs/starrail_animatable.dart';
+import 'package:neo_starrail_chatui/packs/starrail_avatar.dart';
 import 'package:neo_starrail_chatui/packs/starrail_button.dart';
 import 'package:neo_starrail_chatui/packs/starrail_colors.dart';
 
 class StarRailUserObject extends StatefulWidget implements AnimatableObj {
-  StarRailUserObject({super.key, required this.avatar, required this.title, required this.subtitle});
+  StarRailUserObject({super.key, required this.avatar, required this.title, required this.subtitle, required this.hasNewMsg});
 
   Animation<double>? animation;
   Image avatar;
   String title;
   String subtitle;
+  bool hasNewMsg;
 
   @override
   void setAnimation(Animation<double> a) {
@@ -24,9 +26,25 @@ class StarRailUserObject extends StatefulWidget implements AnimatableObj {
 
 class StarRailUserObjectState extends State<StarRailUserObject> {
   @override
+  void didUpdateWidget(covariant StarRailUserObject oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    widget.animation = oldWidget.animation;
+    widget.avatar = oldWidget.avatar;
+    widget.title = oldWidget.title;
+    widget.subtitle = oldWidget.subtitle;
+    widget.hasNewMsg = oldWidget.hasNewMsg;
+  }
+  @override
   Widget build(BuildContext context) {
     var lft = Expanded(child: Row(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.center, children: [
-      widget.avatar,
+      widget.hasNewMsg ? Badge(
+          offset: const Offset(0.1, 0.1),
+          backgroundColor: Colors.redAccent,
+          label: const Text("!"),
+          isLabelVisible: true,
+          child: StarRailAvatar(avatar: widget.avatar)
+      ) : StarRailAvatar(avatar: widget.avatar),
       Expanded(child: Padding(
           padding: const EdgeInsets.only(left: 10),
           child: Column(
@@ -42,7 +60,9 @@ class StarRailUserObjectState extends State<StarRailUserObject> {
       Expanded(child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [ri])),
     ]);
     var b = TextButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed("/chat/uid/0");
+        },
         style: srStyleList,
         child: FadeTransition(
           opacity: widget.animation!,

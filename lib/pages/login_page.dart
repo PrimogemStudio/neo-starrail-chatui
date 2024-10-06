@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:neo_starrail_chatui/packs/starrail_dialog.dart';
 import 'package:neo_starrail_chatui/packs/starrail_page.dart';
 import 'package:neo_starrail_chatui/pages/container/top_page_container.dart';
 
@@ -15,6 +14,11 @@ class LoginPage extends StatefulWidget implements NamedPage {
   @override
   String getName() {
     return "登录至服务器";
+  }
+
+  @override
+  String? getDesc() {
+    return null;
   }
 }
 
@@ -46,7 +50,6 @@ class LoginPageState extends State<LoginPage> {
                 child: const Text('登录'),
                 onPressed: () async {
                   widget.containerState.loginReq("server", username.text, password.text);
-                  Navigator.of(context).pushReplacementNamed('/second');
                 })
           ])))
     );

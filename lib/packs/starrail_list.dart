@@ -67,27 +67,29 @@ class StarRailListState extends State<StarRailList> {
     dynamic c;
     c = (t) {
       SchedulerBinding.instance.addPostFrameCallback((Duration d) {
-        setState(() {
-          if (_controller.positions.isEmpty) return;
-          var extentInside = key.currentContext!.size!.height;
-          var maxScrollExtent = _controller.position.maxScrollExtent;
-          var offset = _controller.offset;
+        if (mounted) {
+          setState(() {
+            if (_controller.positions.isEmpty) return;
+            var extentInside = key.currentContext!.size!.height;
+            var maxScrollExtent = _controller.position.maxScrollExtent;
+            var offset = _controller.offset;
 
-          _height = extentInside - 30;
-          _po = (extentInside + maxScrollExtent) /
-              extentInside /
-              _height *
-              extentInside;
-          _schHeight =
-              _height * (extentInside / (extentInside + maxScrollExtent));
-          _offset = (_height - _schHeight) * (offset / maxScrollExtent);
-          if (_offset.isNaN) {
-            _offset = 0;
-          }
-          if (dragging) {
-            _controller.jumpTo(targetOff);
-          }
-        });
+            _height = extentInside - 30;
+            _po = (extentInside + maxScrollExtent) /
+                extentInside /
+                _height *
+                extentInside;
+            _schHeight =
+                _height * (extentInside / (extentInside + maxScrollExtent));
+            _offset = (_height - _schHeight) * (offset / maxScrollExtent);
+            if (_offset.isNaN) {
+              _offset = 0;
+            }
+            if (dragging) {
+              _controller.jumpTo(targetOff);
+            }
+          });
+        }
       });
       WidgetsBinding.instance.addPostFrameCallback(c);
     };
