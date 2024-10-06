@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:neo_starrail_chatui/packs/starrail_button.dart';
 import 'package:neo_starrail_chatui/packs/starrail_page.dart';
 import 'package:neo_starrail_chatui/packs/starrail_page_route.dart';
+import 'package:neo_starrail_chatui/pages/chat_channel_page.dart';
 import 'package:neo_starrail_chatui/pages/login_page.dart';
 
 import '../../packs/starrail_chatheader.dart';
@@ -35,9 +36,7 @@ class TopPageContainerState extends State<TopPageContainer> {
               builder = (BuildContext context) => LoginPage(containerState: this);
               break;
             case '/second':
-              builder = (BuildContext context) => Scaffold(body: TextButton(style: srStyle, onPressed: () {
-                Navigator.of(context).pushReplacementNamed("/");
-              }, child: const Text("data")));
+              builder = (BuildContext context) => const ChatChannelPage();
               break;
             default:
               throw Exception('Invalid route: ${settings.name}');
