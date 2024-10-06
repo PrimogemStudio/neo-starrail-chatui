@@ -32,13 +32,17 @@ class ChatChannelPageState extends State<ChatChannelPage> {
   void initState() {
     super.initState();
 
-    for (var a in widget.containerState.widget.userObjs) {
-      listKey.currentState!.appendItem(ListTile(
-        minVerticalPadding: 0,
-        contentPadding: EdgeInsets.zero,
-        title: a
-      ));
-    }
+    Future(() {
+      while (listKey.currentState == null) {}
+
+      for (var a in widget.containerState.widget.userObjs) {
+        listKey.currentState!.appendItem(ListTile(
+            minVerticalPadding: 0,
+            contentPadding: EdgeInsets.zero,
+            title: a
+        ));
+      }
+    });
   }
 
   @override
@@ -47,9 +51,10 @@ class ChatChannelPageState extends State<ChatChannelPage> {
 
     widget.containerState = oldWidget.containerState;
   }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Padding(padding: const EdgeInsets.only(left: 30, right: 30), child: StarRailList(key: listKey, innerPanel: Container(), flatted: true)), floatingActionButton: Column(
+    var i = Scaffold(body: Padding(padding: const EdgeInsets.only(left: 30, right: 30), child: StarRailList(key: listKey, innerPanel: Container(), flatted: true)), floatingActionButton: Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       verticalDirection: VerticalDirection.up,
@@ -75,5 +80,7 @@ class ChatChannelPageState extends State<ChatChannelPage> {
         })
       ]
     ));
+
+    return i;
   }
 }
