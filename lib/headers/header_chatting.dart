@@ -5,20 +5,18 @@ class HeaderChatting extends StatelessWidget {
     super.key,
     required this.replyer,
     required this.replyerDesc,
-    required this.withDesc
   });
 
   String replyer;
-  String replyerDesc;
-  bool withDesc;
+  String? replyerDesc;
 
   @override
   Widget build(BuildContext context) {
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(replyer, style: TextStyle(fontSize: withDesc ? 18 : 20)),
-          withDesc ? Text(replyerDesc, style: const TextStyle(fontSize: 13, color: Colors.grey)) : Container()
+          Text(replyer, style: TextStyle(fontSize: replyerDesc != null ? 18 : 20)),
+          replyerDesc != null ? Text(replyerDesc!, style: const TextStyle(fontSize: 13, color: Colors.grey)) : Container()
         ]);
   }
 }

@@ -6,8 +6,7 @@ class ChatHeader extends StatefulWidget {
   ChatHeader({super.key, required this.replyer, required this.replyerDesc});
 
   String replyer;
-  String replyerDesc;
-  bool withDesc = false;
+  String? replyerDesc;
 
   AnimationController? mainAnimation;
   Animation<double>? opacityAnimation;
@@ -63,8 +62,7 @@ class ChatHeaderState extends State<ChatHeader> with TickerProviderStateMixin {
     Future.delayed(Duration(milliseconds: s), () {
       setState(() {
         widget.replyer = replyer;
-        widget.withDesc = replyerDesc != null;
-        if (widget.withDesc) widget.replyerDesc = replyerDesc!;
+        widget.replyerDesc = replyerDesc;
       });
       c.forward();
     });
@@ -82,7 +80,7 @@ class ChatHeaderState extends State<ChatHeader> with TickerProviderStateMixin {
                 margin: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                 child: HeaderChatting(
                     replyer: widget.replyer,
-                    replyerDesc: widget.replyerDesc,
-                    withDesc: widget.withDesc))));
+                    replyerDesc: widget.replyerDesc
+                ))));
   }
 }
