@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:neo_starrail_chatui/packs/starrail_dialog.dart';
 import 'package:neo_starrail_chatui/packs/starrail_list.dart';
 import 'package:neo_starrail_chatui/packs/starrail_message_line.dart';
 import 'package:neo_starrail_chatui/packs/starrail_page.dart';
@@ -8,7 +7,7 @@ import 'package:neo_starrail_chatui/pages/container/top_page_container.dart';
 
 class ChatPage extends StatelessWidget implements NamedPage {
   GlobalKey<StarRailListState> listKey = GlobalKey();
-  GlobalKey<StarRailPanelState> panelState = GlobalKey();
+  GlobalKey<StarRailPanelState> panelKey = GlobalKey();
 
   Widget? target;
 
@@ -28,17 +27,13 @@ class ChatPage extends StatelessWidget implements NamedPage {
 
   @override
   Widget build(BuildContext context) {
-    if (target != null) {
-      return target!;
-    }
-
-    var i = Scaffold(body: StarRailList(key: listKey, innerPanel: StarRailPanel(key: panelState, func: () {
+    return Scaffold(body: StarRailList(key: listKey, innerPanel: StarRailPanel(key: panelKey, func: () {
       listKey.currentState!.appendItem(ListTile(
         title: StarRailMessageLine(
             avatar: Image.asset("assets/avatars/jack253-png.png", width: 50, height: 50),
             self: true,
             username: "Coder2",
-            text: panelState.currentState!.getText(),
+            text: panelKey.currentState!.getText(),
             msgResv: true,
             onLoadComplete: () { listKey.currentState!.scrollToBottom(); },
             image: const NetworkImage("https://www.imagehub.cc/content/images/system/home_cover_1670160663727_f2dcdb.jpeg"),
@@ -53,12 +48,10 @@ class ChatPage extends StatelessWidget implements NamedPage {
                 Navigator.of(context).pushNamed("/channels");
               }),
               FloatingActionButton(tooltip: "打开 Panel", onPressed: () {
-                panelState.currentState!.openPanel();
+                panelKey.currentState!.openPanel();
               })
             ]
         )
     );
-    target = i;
-    return i;
   }
 }
