@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-var uiSurfaceColor = const Color.fromARGB(255, 235, 235, 235);
-var uiSurfaceColorTrans = const Color.fromARGB(0, 235, 235, 235);
+var uiSurfaceColor = const Color.fromARGB(255, 230, 230, 230);
+var uiSurfaceColorTrans = const Color.fromARGB(0, 230, 230, 230);
 var uiPanelBack = const Color.fromARGB(255, 223, 223, 223);
 var uiPanelBorder = const Color.fromARGB(255, 200, 200, 200);
 var uiPanelBorderTrans = const Color.fromARGB(0, 200, 200, 200);

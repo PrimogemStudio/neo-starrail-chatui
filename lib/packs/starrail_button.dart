@@ -63,30 +63,31 @@ var srStyleList = ButtonStyle(
 
 var srStyleImage = ButtonStyle(
     padding: WidgetStateProperty.all(EdgeInsets.zero),
-    animationDuration: const Duration(milliseconds: 150),
+    animationDuration: const Duration(milliseconds: 100),
     overlayColor: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
       if (states.contains(WidgetState.pressed)) {
-        return uiBtnBgPressed;
+        return uiBtnBgPressedSpec;
       }
       else if (states.contains(WidgetState.hovered)) {
-        return uiBtnBgHover;
+        return uiBtnBg;
       }
-      return uiBtnBg;
+      return uiSurfaceColor;
     }),
     foregroundColor: WidgetStateProperty.all(Colors.black),
     shape: WidgetStateProperty.all(BeveledRectangleBorder(borderRadius: BorderRadius.circular(0))),
     backgroundColor: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
-      return uiBtnBg;
+      return uiSurfaceColor;
     }),
-    elevation: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
+    elevation: WidgetStateProperty.all(0),
+    splashFactory: NoSplash.splashFactory,
+    textStyle: WidgetStateProperty.all(const TextStyle(fontSize: 16, fontFamily: "StarRailFont_bundle")),
+    side: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
       if (states.contains(WidgetState.pressed)) {
-        return 0;
+        return const BorderSide(color: Color.fromARGB(125, 255, 255, 255), width: 1);
       }
       else if (states.contains(WidgetState.hovered)) {
-        return 3;
+        return const BorderSide(color: Colors.white, width: 1);
       }
-      return 2;
-    }),
-    splashFactory: NoSplash.splashFactory,
-    textStyle: WidgetStateProperty.all(const TextStyle(fontSize: 16, fontFamily: "StarRailFont_bundle"))
+      return const BorderSide(color: Color.fromARGB(0, 255, 255, 255), width: 1);
+    })
 );
