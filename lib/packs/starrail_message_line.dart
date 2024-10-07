@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:neo_starrail_chatui/packs/dialogs/starrail_chatimage_dialog.dart';
 import 'package:neo_starrail_chatui/packs/starrail_animatable.dart';
 import 'package:neo_starrail_chatui/packs/starrail_avatar.dart';
+import 'package:neo_starrail_chatui/packs/starrail_button.dart';
 import 'package:neo_starrail_chatui/packs/starrail_colors.dart';
+import 'package:neo_starrail_chatui/packs/starrail_dialog.dart';
 import 'dart:math';
 
 import 'package:neo_starrail_chatui/packs/starrail_rounded_rect.dart';
 
 class StarRailMessageLine extends StatefulWidget implements AnimatableObj {
   StarRailMessageLine(
-      {super.key,
-      required this.avatar,
-      required this.self,
-      required this.username,
-      required this.text,
-      required this.msgResv,
-      required this.onLoadComplete}) {
+      {
+        super.key,
+        required this.avatar,
+        required this.self,
+        required this.username,
+        required this.text,
+        required this.msgResv,
+        required this.onLoadComplete,
+        required this.image,
+        required this.onImagePressed
+      }) {
     if (self) msgResv = true;
   }
 
@@ -23,6 +30,8 @@ class StarRailMessageLine extends StatefulWidget implements AnimatableObj {
   final String username;
   final String text;
   final Function onLoadComplete;
+  final ImageProvider<Object>? image;
+  final Function onImagePressed;
   Animation<double>? animation;
   AnimationController? mainAnimation;
   AnimationController? msgAnimation;
@@ -156,6 +165,10 @@ class StarRailMessageLineState extends State<StarRailMessageLine> with TickerPro
                     style: const TextStyle(color: Colors.black, fontSize: 16.0),
                   )
                 ))));
+
+    var msgMainI = widget.image != null ? Padding(padding: const EdgeInsets.only(left: 10, right: 10, top: 3), child: TextButton(onPressed: () {
+      showSrDialog(context, (v) { widget.onImagePressed(v); }, StarRailChatImageDialog(image: widget.image!));
+    }, style: srStyleImage, child: Image(image: widget.image!, width: 300))) : Container();
     return Padding(
         padding: const EdgeInsets.only(),
         child: Row(
@@ -192,7 +205,7 @@ class StarRailMessageLineState extends State<StarRailMessageLine> with TickerPro
                           opacity: widget.animation!, child: msgMain),
                       widget.msgResv
                           ? FadeTransition(
-                              opacity: widget.msgAnimation!, child: msgMain2)
+                              opacity: widget.msgAnimation!, child: widget.image != null ? msgMainI : msgMain2)
                           : Container()
                     ])
               ],

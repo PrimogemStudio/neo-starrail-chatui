@@ -40,7 +40,10 @@ class ChatPage extends StatelessWidget implements NamedPage {
             username: "Coder2",
             text: panelState.currentState!.getText(),
             msgResv: true,
-            onLoadComplete: () { listKey.currentState!.scrollToBottom(); }),
+            onLoadComplete: () { listKey.currentState!.scrollToBottom(); },
+            image: const NetworkImage("https://www.imagehub.cc/content/images/system/home_cover_1670160663727_f2dcdb.jpeg"),
+            onImagePressed: (v) { containerState.updateBlur(v); }
+        ),
       ));
     }, onMoving: () { listKey.currentState!.scrollToBottomImm(); }), flatted: false),
         floatingActionButton: Column(
@@ -51,11 +54,6 @@ class ChatPage extends StatelessWidget implements NamedPage {
               }),
               FloatingActionButton(tooltip: "打开 Panel", onPressed: () {
                 panelState.currentState!.openPanel();
-              }),
-              FloatingActionButton(tooltip: "打开对话框", onPressed: () {
-                showSrDialog(context, (v) {
-                  containerState.updateBlur(v);
-                });
               })
             ]
         )

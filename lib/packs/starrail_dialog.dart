@@ -2,16 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'dialogs/starrail_chatimage_dialog.dart';
 
-void showSrDialog(BuildContext context, Function onAnimation) {
+void showSrDialog(BuildContext context, Function onAnimation, Widget w) {
   showGeneralDialog(
     barrierColor: Colors.transparent,
     barrierDismissible: true,
     barrierLabel: "",
     context: context,
-    pageBuilder:
-        (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
-      return const StarRailChatImageDialog();
-    },
+    pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) => w,
     transitionDuration: const Duration(milliseconds: 200),
     transitionBuilder: (BuildContext context, Animation<double> animation,
         Animation<double> secondaryAnimation, Widget child) {
