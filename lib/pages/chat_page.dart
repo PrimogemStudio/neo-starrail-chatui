@@ -16,6 +16,7 @@ class ChatPage extends StatelessWidget implements NamedPage {
   ChatPage({super.key, required this.containerState});
 
   TopPageContainerState containerState;
+  List<Widget> msgs = [];
 
   @override
   String getName() {
@@ -29,15 +30,23 @@ class ChatPage extends StatelessWidget implements NamedPage {
 
   @override
   Widget build(BuildContext context) {
-    /*if (listKey.currentState != null) {
+    if (listKey.currentState != null) {
       listKey = GlobalKey();
+
+      Future(() {
+        while (listKey.currentState == null) {}
+
+        for (var a in msgs) {
+          listKey.currentState!.appendItem(a as ListTile);
+        }
+      });
     }
     if (panelKey.currentState != null) {
       panelKey = GlobalKey();
-    }*/
+    }
 
     return Scaffold(body: StarRailList(key: listKey, innerPanel: StarRailPanel(key: panelKey, func: () {
-      listKey.currentState!.appendItem(ListTile(
+      var i = ListTile(
         title: StarRailMessageLine(
             avatar: Image.asset("assets/avatars/jack253-png.png", width: 50, height: 50),
             self: true,
@@ -48,7 +57,9 @@ class ChatPage extends StatelessWidget implements NamedPage {
             image: const NetworkImage("https://www.imagehub.cc/content/images/system/home_cover_1670160663727_f2dcdb.jpeg"),
             onImagePressed: (v) { containerState.updateBlur(v); }
         ),
-      ));
+      );
+      msgs.add(i);
+      listKey.currentState!.appendItem(i);
     }, onMoving: () { listKey.currentState!.scrollToBottomImm(); }), flatted: false),
         floatingActionButton: Column(
             verticalDirection: VerticalDirection.up,
