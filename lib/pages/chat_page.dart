@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:neo_starrail_chatui/packs/starrail_list.dart';
 import 'package:neo_starrail_chatui/packs/starrail_message_line.dart';
@@ -27,6 +29,13 @@ class ChatPage extends StatelessWidget implements NamedPage {
 
   @override
   Widget build(BuildContext context) {
+    /*if (listKey.currentState != null) {
+      listKey = GlobalKey();
+    }
+    if (panelKey.currentState != null) {
+      panelKey = GlobalKey();
+    }*/
+
     return Scaffold(body: StarRailList(key: listKey, innerPanel: StarRailPanel(key: panelKey, func: () {
       listKey.currentState!.appendItem(ListTile(
         title: StarRailMessageLine(

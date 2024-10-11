@@ -16,6 +16,9 @@ class StarRailList extends StatefulWidget {
   final Widget? innerPanel;
   bool flatted;
 
+  List<Widget> list = [];
+  AnimatedList? view;
+
   @override
   State<StatefulWidget> createState() => StarRailListState();
 }
@@ -27,29 +30,35 @@ class StarRailListState extends State<StarRailList> {
   bool draggingInner = false;
   double targetOff = 0;
 
-  List<Widget> list = [];
-  AnimatedList? view;
   final ScrollController _controller = ScrollController();
-  GlobalKey<AnimatedListState> key = GlobalKey<AnimatedListState>();
-  GlobalKey barKey = GlobalKey();
+  final GlobalKey<AnimatedListState> key = GlobalKey<AnimatedListState>();
+  final GlobalKey barKey = GlobalKey();
 
   double _offset = 0;
   double _height = 0;
   double _schHeight = 0;
   double _po = 1;
 
+  @override
+  void didUpdateWidget(covariant StarRailList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    widget.list = oldWidget.list;
+    widget.view = oldWidget.view;
+  }
+
   void appendItem(ListTile l) {
     setState(() {
-      list.add(l);
-      key.currentState!.insertItem(list.length - 1);
+      widget.list.add(l);
+      key.currentState!.insertItem(widget.list.length - 1);
       scrollToBottom();
     });
   }
 
   void removeItemAt(int idx) {
     setState(() {
-      var i = list[idx];
-      if (idx >= 0) list.removeAt(idx);
+      var i = widget.list[idx];
+      if (idx >= 0) widget.list.removeAt(idx);
       key.currentState!.removeItem(idx, (BuildContext context, Animation<double> animation) {
         return FadeTransition(opacity: animation, child: i);
       }, duration: const Duration(milliseconds: 100));
@@ -121,18 +130,18 @@ class StarRailListState extends State<StarRailList> {
 
   @override
   Widget build(BuildContext context) {
-    view = AnimatedList(
+    widget.view ??= AnimatedList(
       key: key,
-      initialItemCount: list.length,
+      initialItemCount: widget.list.length,
       itemBuilder: (context, index, animation) {
-        if (index >= list.length) {
+        if (index >= widget.list.length) {
           return Container();
         }
-        if ((list[index] as ListTile).title is AnimatableObj) {
-          ((list[index] as ListTile).title as AnimatableObj).setAnimation(animation);
+        if ((widget.list[index] as ListTile).title is AnimatableObj) {
+          ((widget.list[index] as ListTile).title as AnimatableObj).setAnimation(animation);
         }
 
-        return list[index];
+        return widget.list[index];
       },
       controller: _controller,
       physics: const BouncingScrollPhysics(),
@@ -201,11 +210,11 @@ class StarRailListState extends State<StarRailList> {
           },
         ));
 
-    final viewpanel = Expanded(child: ScrollConfiguration(
+    final viewpanel = ScrollConfiguration(
         behavior:
         const ScrollBehavior().copyWith(scrollbars: false),
         child: Listener(
-            child: view!,
+            child: widget.view!,
             onPointerMove: (e) {
               targetOff =
                   (dragOff!.dy - e.localPosition.dy) + currOff;
@@ -218,15 +227,30 @@ class StarRailListState extends State<StarRailList> {
             },
             onPointerUp: (e) {
               dragging = false;
-            })));
+            }));
+    var b = Container(
+      height: 8,
+      decoration: BoxDecoration(
+        shape: BoxShape.rectangle,
+        gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              uiSurfaceColorTrans,
+              uiSurfaceColor
+            ]),
+      ),
+    );
 
     return Stack(
       alignment: Alignment.topRight,
       children: [
-        Column(children: [
-          viewpanel,
-          widget.innerPanel?? Container(),
-        ]),
+        Column(
+          children: [
+            Expanded(child: viewpanel),
+            widget.innerPanel?? Container(),
+          ]
+        ),
         mainBar,
         Column(children: [
           Container(
