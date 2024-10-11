@@ -1,9 +1,13 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:neo_starrail_chatui/packs/starrail_colors.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:neo_starrail_chatui/pages/container/top_page_container.dart';
 
-void main() {
+void main() async {
   timeDilation = 1.5;
   runApp(const ClipRRect(borderRadius: BorderRadius.only(topRight: Radius.circular(30)), child: MainApp()));
 }

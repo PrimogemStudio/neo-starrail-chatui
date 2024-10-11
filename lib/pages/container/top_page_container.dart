@@ -57,10 +57,10 @@ class TopPageContainerState extends State<TopPageContainer> {
 
           var i = builder(context);
           if (i is NamedPage && headerKey.currentState != null) {
-            headerKey.currentState!.updateText((i as NamedPage).getName(), (i as NamedPage).getDesc(), 500);
+            headerKey.currentState!.updateText((i as NamedPage).getName(), (i as NamedPage).getDesc());
           }
 
-          return genBuilder(builder, (settings.name == "/channels" ? -1 : 1) * 0.2, 300);
+          return genBuilder(builder, settings.name!.startsWith("/chat/uid/") ? 0 : 0.1, 300);
         },
       )
     );
