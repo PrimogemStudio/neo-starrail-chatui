@@ -35,9 +35,7 @@ class ChatPageState extends State<ChatPage> {
     Future(() {
       while (listKey.currentState == null) {}
 
-      for (var a in widget.msgs) {
-        listKey.currentState!.appendItemI(a);
-      }
+      listKey.currentState!.appendAll(widget.msgs);
 
       WidgetsBinding.instance.addPostFrameCallback((t) { listKey.currentState!.updateList() ;listKey.currentState!.scrollToBottomImmFast(); });
     });
