@@ -56,9 +56,14 @@ class StarRailListState extends State<StarRailList> {
   }
 
   void appendItemI(ListTile l) {
+    widget.list.add(l);
+    key.currentState!.insertItem(widget.list.length - 1);
+    // key.currentState!.insertAllItems(index, length)
+  }
+
+  void updateList() {
     setState(() {
-      widget.list.add(l);
-      key.currentState!.insertItem(widget.list.length - 1);
+
     });
   }
 

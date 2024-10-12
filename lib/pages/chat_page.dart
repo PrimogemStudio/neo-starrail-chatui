@@ -6,16 +6,11 @@ import 'package:neo_starrail_chatui/packs/starrail_page.dart';
 import 'package:neo_starrail_chatui/packs/starrail_panel.dart';
 import 'package:neo_starrail_chatui/pages/container/top_page_container.dart';
 
-class ChatPage extends StatelessWidget implements NamedPage {
-  GlobalKey<StarRailListState> listKey = GlobalKey();
-  GlobalKey<StarRailPanelState> panelKey = GlobalKey();
-
-  Widget? target;
-
+class ChatPage extends StatefulWidget implements NamedPage {
   ChatPage({super.key, required this.containerState});
 
   TopPageContainerState containerState;
-  List<Widget> msgs = [];
+  List<ListTile> msgs = [];
 
   @override
   String getName() {
@@ -28,24 +23,36 @@ class ChatPage extends StatelessWidget implements NamedPage {
   }
 
   @override
+  State<StatefulWidget> createState() => ChatPageState();
+}
+class ChatPageState extends State<ChatPage> {
+  GlobalKey<StarRailListState> listKey = GlobalKey();
+  GlobalKey<StarRailPanelState> panelKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    Future(() {
+      while (listKey.currentState == null) {}
+
+      for (var a in widget.msgs) {
+        listKey.currentState!.appendItemI(a);
+      }
+
+      WidgetsBinding.instance.addPostFrameCallback((t) { listKey.currentState!.updateList() ;listKey.currentState!.scrollToBottomImmFast(); });
+    });
+  }
+
+  @override
+  void didUpdateWidget(covariant ChatPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    widget.msgs = oldWidget.msgs;
+    widget.containerState = oldWidget.containerState;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (listKey.currentState != null) {
-      listKey = GlobalKey();
-
-      Future(() {
-        while (listKey.currentState == null) {}
-
-        for (var a in msgs) {
-          listKey.currentState!.appendItemI(a as ListTile);
-        }
-
-        WidgetsBinding.instance.addPostFrameCallback((t) { listKey.currentState!.scrollToBottomImmFast(); });
-      });
-    }
-    if (panelKey.currentState != null) {
-      panelKey = GlobalKey();
-    }
-
     return Scaffold(body: StarRailList(key: listKey, innerPanel: StarRailPanel(key: panelKey, func: () {
       var i = ListTile(
         title: StarRailMessageLine(
@@ -56,10 +63,10 @@ class ChatPage extends StatelessWidget implements NamedPage {
             msgResv: true,
             onLoadComplete: () { listKey.currentState!.scrollToBottom(); },
             image: const NetworkImage("https://www.imagehub.cc/content/images/system/home_cover_1670160663727_f2dcdb.jpeg"),
-            onImagePressed: (v) { containerState.updateBlur(v); }
+            onImagePressed: (v) { widget.containerState.updateBlur(v); }
         ),
       );
-      msgs.add(i);
+      widget.msgs.add(i);
       listKey.currentState!.appendItem(i);
     }, onMoving: () { listKey.currentState!.scrollToBottomImm(); }), flatted: false),
         floatingActionButton: Column(
