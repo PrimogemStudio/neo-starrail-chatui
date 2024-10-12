@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:neo_starrail_chatui/packs/starrail_animatable.dart';

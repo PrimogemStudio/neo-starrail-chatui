@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:neo_starrail_chatui/packs/starrail_list.dart';
@@ -37,8 +36,10 @@ class ChatPage extends StatelessWidget implements NamedPage {
         while (listKey.currentState == null) {}
 
         for (var a in msgs) {
-          listKey.currentState!.appendItem(a as ListTile);
+          listKey.currentState!.appendItemI(a as ListTile);
         }
+
+        WidgetsBinding.instance.addPostFrameCallback((t) { listKey.currentState!.scrollToBottomImmFast(); });
       });
     }
     if (panelKey.currentState != null) {

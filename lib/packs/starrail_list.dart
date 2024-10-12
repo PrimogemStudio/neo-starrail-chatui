@@ -55,6 +55,13 @@ class StarRailListState extends State<StarRailList> {
     });
   }
 
+  void appendItemI(ListTile l) {
+    setState(() {
+      widget.list.add(l);
+      key.currentState!.insertItem(widget.list.length - 1);
+    });
+  }
+
   void removeItemAt(int idx) {
     setState(() {
       var i = widget.list[idx];
@@ -79,6 +86,10 @@ class StarRailListState extends State<StarRailList> {
     _controller.animateTo(_controller.position.maxScrollExtent,
         duration: const Duration(milliseconds: 150),
         curve: Curves.easeOutExpo);
+  }
+
+  void scrollToBottomImmFast() {
+    _controller.jumpTo(_controller.position.maxScrollExtent);
   }
 
   @override
