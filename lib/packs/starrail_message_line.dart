@@ -44,6 +44,7 @@ class StarRailMessageLine extends StatefulWidget implements AnimatableObj {
 
   @override
   void setAnimation(Animation<double> a) {
+    if (animation != null) return;
     animation = a;
   }
 }
