@@ -261,7 +261,7 @@ class StarRailListState extends State<StarRailList> {
             onPointerUp: (e) {
               dragging = false;
             }));
-    /*var b = Container(
+    var b = Container(
       height: 8,
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
@@ -271,9 +271,10 @@ class StarRailListState extends State<StarRailList> {
             colors: [
               uiSurfaceColorTrans,
               uiSurfaceColor
-            ]),
+            ]
+        ),
       ),
-    );*/
+    );
 
     return Stack(
       alignment: Alignment.topRight,
@@ -302,7 +303,7 @@ class StarRailListState extends State<StarRailList> {
                     widget.flatted ? Colors.transparent : uiSurfaceColorTrans
                   ]),
             ),
-          ),
+          )
         ])
       ],
     );
