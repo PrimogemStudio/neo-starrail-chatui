@@ -56,6 +56,7 @@ class StarRailListState extends State<StarRailList> {
   void appendItem(ListTile l) {
     setState(() {
       widget.list.add(l);
+      print(widget.list.length - 1 - currentOffset);
       key.currentState!.insertItem(widget.list.length - 1 - currentOffset);
       scrollToBottom();
     });
@@ -66,13 +67,14 @@ class StarRailListState extends State<StarRailList> {
 
     currentOffset = max(0, l.length - widget.pageSize);
 
-    key.currentState!.insertAllItems(0, widget.pageSize);
+    key.currentState!.insertAllItems(0, l.length - currentOffset);
   }
 
   void loadMore() {
     setState(() {
+      var i = currentOffset;
       currentOffset = max(0, currentOffset - widget.pageSize);
-      key.currentState!.insertAllItems(0, widget.pageSize);
+      key.currentState!.insertAllItems(0, i - currentOffset);
     });
   }
 
