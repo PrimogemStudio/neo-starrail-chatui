@@ -112,8 +112,6 @@ class StarRailListState extends State<StarRailList> {
     var maxScrollExtent = _controller.position.maxScrollExtent;
     var offset = _controller.offset;
 
-    if (maxScrollExtent != 0) print(maxScrollExtent);
-
     _height = height - 30;
     _po = (height + maxScrollExtent) /
         height /

@@ -58,8 +58,8 @@ class StarRailMessageLineState extends State<StarRailMessageLine> with TickerPro
 
   @override
   void dispose() {
-    widget.mainAnimation!.dispose();
-    widget.msgAnimation!.dispose();
+    widget.mainAnimation?.dispose();
+    widget.msgAnimation?.dispose();
     super.dispose();
   }
 
@@ -70,6 +70,7 @@ class StarRailMessageLineState extends State<StarRailMessageLine> with TickerPro
         vsync: this, duration: const Duration(milliseconds: 1000));
     widget.msgAnimation = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 100));
+
     widget.mainAnimation!.addListener(() {
       setState(() {
         o = toO(-widget.mainAnimation!.value - 0.1);
@@ -117,7 +118,7 @@ class StarRailMessageLineState extends State<StarRailMessageLine> with TickerPro
         ]));
 
     if (widget.msgResv) {
-      if (!widget.self) widget.mainAnimation!.stop();
+      widget.mainAnimation!.stop();
       widget.msgAnimation!.forward();
     }
 
