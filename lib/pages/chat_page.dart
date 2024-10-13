@@ -37,7 +37,7 @@ class ChatPageState extends State<ChatPage> {
 
       listKey.currentState!.appendAll(widget.msgs);
 
-      WidgetsBinding.instance.addPostFrameCallback((t) { listKey.currentState!.updateList() ;listKey.currentState!.scrollToBottomImmFast(); });
+      WidgetsBinding.instance.addPostFrameCallback((t) { listKey.currentState!.scrollToBottomImmFast(); });
     });
   }
 
@@ -52,7 +52,7 @@ class ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: StarRailList(key: listKey, innerPanel: StarRailPanel(key: panelKey, func: () {
-      for (int idx = 0; idx < 10; idx++) {
+      for (int idx = 0; idx < 1; idx++) {
         var i = ListTile(
           title: StarRailMessageLine(
               avatar: Image.asset("assets/avatars/jack253-png.png", width: 50, height: 50),

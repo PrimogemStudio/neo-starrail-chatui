@@ -21,6 +21,8 @@ class StarRailList extends StatefulWidget {
   List<Widget> list = [];
   AnimatedList? view;
 
+  int pageSize = 4;
+
   @override
   State<StatefulWidget> createState() => StarRailListState();
 }
@@ -62,21 +64,15 @@ class StarRailListState extends State<StarRailList> {
   void appendAll(List<ListTile> l) {
     widget.list.addAll(l);
 
-    currentOffset = max(0, l.length - 4);
+    currentOffset = max(0, l.length - widget.pageSize);
 
-    key.currentState!.insertAllItems(0, 4);
-  }
-
-  void updateList() {
-    setState(() {
-
-    });
+    key.currentState!.insertAllItems(0, widget.pageSize);
   }
 
   void loadMore() {
     setState(() {
-      currentOffset = max(0, currentOffset - 4);
-      key.currentState!.insertAllItems(0, 4);
+      currentOffset = max(0, currentOffset - widget.pageSize);
+      key.currentState!.insertAllItems(0, widget.pageSize);
     });
   }
 
@@ -110,6 +106,30 @@ class StarRailListState extends State<StarRailList> {
     _controller.jumpTo(_controller.position.maxScrollExtent);
   }
 
+  void onRecalc() {
+    if (_controller.positions.isEmpty) return;
+    var extentInside = key.currentContext!.size!.height;
+    var maxScrollExtent = _controller.position.maxScrollExtent;
+    var offset = _controller.offset;
+
+    _height = extentInside - 30;
+    _po = (extentInside + maxScrollExtent) /
+        extentInside /
+        _height *
+        extentInside;
+    _schHeight =
+        _height * (extentInside / (extentInside + maxScrollExtent));
+    _offset = (_height - _schHeight) * (offset / maxScrollExtent);
+    if (_offset.isNaN) {
+      _offset = 0;
+    }
+    if (dragging) {
+      _controller.jumpTo(targetOff);
+    }
+
+    // loadMore();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -118,25 +138,7 @@ class StarRailListState extends State<StarRailList> {
       SchedulerBinding.instance.addPostFrameCallback((Duration d) {
         if (mounted) {
           setState(() {
-            if (_controller.positions.isEmpty) return;
-            var extentInside = key.currentContext!.size!.height;
-            var maxScrollExtent = _controller.position.maxScrollExtent;
-            var offset = _controller.offset;
-
-            _height = extentInside - 30;
-            _po = (extentInside + maxScrollExtent) /
-                extentInside /
-                _height *
-                extentInside;
-            _schHeight =
-                _height * (extentInside / (extentInside + maxScrollExtent));
-            _offset = (_height - _schHeight) * (offset / maxScrollExtent);
-            if (_offset.isNaN) {
-              _offset = 0;
-            }
-            if (dragging) {
-              _controller.jumpTo(targetOff);
-            }
+            onRecalc();
           });
         }
       });
