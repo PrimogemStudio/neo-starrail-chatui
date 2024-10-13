@@ -35,8 +35,6 @@ class StarRailMessageLine extends StatefulWidget implements AnimatableObj {
   Animation<double>? animation;
   AnimationController? mainAnimation;
   AnimationController? msgAnimation;
-  bool mainDisposed = false;
-  bool msgDisposed = false;
   bool msgResv;
 
   @override
@@ -79,7 +77,7 @@ class StarRailMessageLineState extends State<StarRailMessageLine> with TickerPro
         o3 = toO(-widget.mainAnimation!.value + 0.1);
       });
     });
-    widget.mainAnimation!.repeat();
+    if (!widget.self) widget.mainAnimation!.repeat();
     Future.delayed(
         Duration(
             milliseconds: min(
@@ -119,7 +117,7 @@ class StarRailMessageLineState extends State<StarRailMessageLine> with TickerPro
         ]));
 
     if (widget.msgResv) {
-      widget.mainAnimation!.stop();
+      if (!widget.self) widget.mainAnimation!.stop();
       widget.msgAnimation!.forward();
     }
 

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
@@ -39,6 +41,8 @@ class StarRailListState extends State<StarRailList> {
   double _schHeight = 0;
   double _po = 1;
 
+  int currentOffset = 0;
+
   @override
   void didUpdateWidget(covariant StarRailList oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -50,7 +54,7 @@ class StarRailListState extends State<StarRailList> {
   void appendItem(ListTile l) {
     setState(() {
       widget.list.add(l);
-      key.currentState!.insertItem(widget.list.length - 1);
+      key.currentState!.insertItem(widget.list.length - 1 - currentOffset);
       scrollToBottom();
     });
   }
@@ -58,12 +62,21 @@ class StarRailListState extends State<StarRailList> {
   void appendAll(List<ListTile> l) {
     widget.list.addAll(l);
 
-    key.currentState!.insertAllItems(0, l.length);
+    currentOffset = max(0, l.length - 4);
+
+    key.currentState!.insertAllItems(0, 4);
   }
 
   void updateList() {
     setState(() {
 
+    });
+  }
+
+  void loadMore() {
+    setState(() {
+      currentOffset = max(0, currentOffset - 4);
+      key.currentState!.insertAllItems(0, 4);
     });
   }
 
@@ -150,14 +163,15 @@ class StarRailListState extends State<StarRailList> {
       key: key,
       initialItemCount: widget.list.length,
       itemBuilder: (context, index, animation) {
-        if (index >= widget.list.length) {
+        var relI = index + currentOffset;
+        if (relI >= widget.list.length) {
           return Container();
         }
-        if ((widget.list[index] as ListTile).title is AnimatableObj) {
-          ((widget.list[index] as ListTile).title as AnimatableObj).setAnimation(animation);
+        if ((widget.list[relI] as ListTile).title is AnimatableObj) {
+          ((widget.list[relI] as ListTile).title as AnimatableObj).setAnimation(animation);
         }
 
-        return widget.list[index];
+        return widget.list[relI];
       },
       controller: _controller,
       physics: const BouncingScrollPhysics(),
