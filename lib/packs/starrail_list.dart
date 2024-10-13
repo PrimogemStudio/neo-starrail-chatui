@@ -108,17 +108,19 @@ class StarRailListState extends State<StarRailList> {
 
   void onRecalc() {
     if (_controller.positions.isEmpty) return;
-    var extentInside = key.currentContext!.size!.height;
+    var height = key.currentContext!.size!.height;
     var maxScrollExtent = _controller.position.maxScrollExtent;
     var offset = _controller.offset;
 
-    _height = extentInside - 30;
-    _po = (extentInside + maxScrollExtent) /
-        extentInside /
+    if (maxScrollExtent != 0) print(maxScrollExtent);
+
+    _height = height - 30;
+    _po = (height + maxScrollExtent) /
+        height /
         _height *
-        extentInside;
+        height;
     _schHeight =
-        _height * (extentInside / (extentInside + maxScrollExtent));
+        _height * (height / (height + maxScrollExtent));
     _offset = (_height - _schHeight) * (offset / maxScrollExtent);
     if (_offset.isNaN) {
       _offset = 0;
@@ -126,13 +128,12 @@ class StarRailListState extends State<StarRailList> {
     if (dragging) {
       _controller.jumpTo(targetOff);
     }
-
-    // loadMore();
   }
 
   @override
   void initState() {
     super.initState();
+
     dynamic c;
     c = (t) {
       SchedulerBinding.instance.addPostFrameCallback((Duration d) {
@@ -142,6 +143,7 @@ class StarRailListState extends State<StarRailList> {
           });
         }
       });
+
       WidgetsBinding.instance.addPostFrameCallback(c);
     };
     WidgetsBinding.instance.addPostFrameCallback(c);
@@ -163,7 +165,7 @@ class StarRailListState extends State<StarRailList> {
   Widget build(BuildContext context) {
     widget.view ??= AnimatedList(
       key: key,
-      initialItemCount: widget.list.length,
+      initialItemCount: widget.list.length - currentOffset,
       itemBuilder: (context, index, animation) {
         var relI = index + currentOffset;
         if (relI >= widget.list.length) {
@@ -260,7 +262,7 @@ class StarRailListState extends State<StarRailList> {
             onPointerUp: (e) {
               dragging = false;
             }));
-    var b = Container(
+    /*var b = Container(
       height: 8,
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
@@ -272,7 +274,7 @@ class StarRailListState extends State<StarRailList> {
               uiSurfaceColor
             ]),
       ),
-    );
+    );*/
 
     return Stack(
       alignment: Alignment.topRight,

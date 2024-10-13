@@ -52,7 +52,7 @@ class ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: StarRailList(key: listKey, innerPanel: StarRailPanel(key: panelKey, func: () {
-      for (int idx = 0; idx < 1; idx++) {
+      for (int idx = 0; idx < 4; idx++) {
         var i = ListTile(
           title: StarRailMessageLine(
               avatar: Image.asset("assets/avatars/jack253-png.png", width: 50, height: 50),
