@@ -1,5 +1,5 @@
-import 'package:chat_flutter/controls/sr_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:neo_starrail_chatui/controls/sr_colors.dart';
 
 class SrScrollBar extends Scrollbar {
   const SrScrollBar({super.key, required super.child, required super.controller}) : super(

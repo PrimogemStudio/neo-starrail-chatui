@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "chat_flutter" "\0"
+            VALUE "FileDescription", "neo_starrail_chatui" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "chat_flutter" "\0"
+            VALUE "InternalName", "neo_starrail_chatui" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "chat_flutter.exe" "\0"
-            VALUE "ProductName", "chat_flutter" "\0"
+            VALUE "OriginalFilename", "neo_starrail_chatui.exe" "\0"
+            VALUE "ProductName", "neo_starrail_chatui" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

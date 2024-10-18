@@ -1,6 +1,6 @@
 {
-    "name": "chat_flutter",
-    "short_name": "chat_flutter",
+    "name": "neo_starrail_chatui",
+    "short_name": "neo_starrail_chatui",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

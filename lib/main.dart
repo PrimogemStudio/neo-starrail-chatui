@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:chat_flutter/controls/sr_scroll_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:neo_starrail_chatui/controls/sr_scroll_bar.dart';
 
 void main() {
   runApp(const MyApp());

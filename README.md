@@ -1,4 +1,4 @@
-# chat_flutter
+# neo_starrail_chatui
 
 A new Flutter project.
 
