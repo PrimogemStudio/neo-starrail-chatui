@@ -39,6 +39,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   late Timer timer;
 
+  var items = 2;
+
   @override
   void initState() {
     super.initState();
@@ -64,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: ListView.builder(
                     itemBuilder: (i, b) { return Text("$b"); },
                     physics: const BouncingScrollPhysics(),
-                    itemCount: 100,
+                    itemCount: items,
                     controller: c
                 )
             )
@@ -74,13 +76,26 @@ class _MyHomePageState extends State<MyHomePage> {
           onVerticalDragEnd: (dud) { scr = false; },
         )
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          c.jumpTo(-200);
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      floatingActionButton: Row(children: [
+        FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              items += 10;
+            });
+          },
+          tooltip: 'Increment',
+          child: const Icon(Icons.add),
+        ),
+        FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              items -= 10;
+            });
+          },
+          tooltip: 'Increment5',
+          child: const Icon(Icons.add),
+        )
+      ]), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

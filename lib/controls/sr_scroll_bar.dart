@@ -58,7 +58,7 @@ class SrScrollbarStateI extends RawScrollbarState<SrScrollbarI> {
       ..trackColor = uiViewBarBg
       ..trackBorderColor = Colors.transparent
       ..textDirection = Directionality.of(context)
-      ..thickness = 4
+      ..thickness = 3
       ..radius = Radius.zero
       ..crossAxisMargin = 0
       ..mainAxisMargin = 0
