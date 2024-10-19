@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:neo_starrail_chatui/packs/starrail_animatable.dart';
 import 'package:neo_starrail_chatui/packs/starrail_rounded_rect.dart';
+import 'package:neo_starrail_chatui/packs/starrail_scrollbar.dart';
 
 import 'starrail_colors.dart';
 
@@ -31,6 +33,9 @@ class StarRailListState extends State<StarRailList> {
   final ScrollController _controller = ScrollController();
   final GlobalKey<AnimatedListState> key = GlobalKey<AnimatedListState>();
   final GlobalKey barKey = GlobalKey();
+
+  late Timer timer;
+  var scr = false;
 
   int currentOffset = 0;
 
@@ -110,6 +115,16 @@ class StarRailListState extends State<StarRailList> {
         _controller.jumpTo(scrollEnd);
       }
     });
+
+    timer = Timer.periodic(const Duration(milliseconds: 16), (_) {
+      if (scr) _controller.jumpTo(_controller.offset);
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    timer.cancel();
   }
 
   @override
@@ -132,17 +147,31 @@ class StarRailListState extends State<StarRailList> {
       physics: const BouncingScrollPhysics(),
     );
 
-    final viewpanel = ScrollConfiguration(
-        behavior:
-        const ScrollBehavior().copyWith(scrollbars: false),
-        child: widget.view!);
+    var lstW = ScrollConfiguration(
+        behavior: const ScrollBehavior().copyWith(scrollbars: false),
+        child: SrScrollBar(
+            controller: _controller,
+            child: widget.view!
+        )
+    );
 
     return Stack(
       alignment: Alignment.topRight,
       children: [
         Column(
           children: [
-            Expanded(child: viewpanel),
+            Expanded(child: GestureDetector(
+              onVerticalDragUpdate: (dud) {
+                _controller.jumpTo(_controller.offset - dud.delta.dy);
+              },
+              onVerticalDragStart: (dud) {
+                scr = true;
+              },
+              onVerticalDragEnd: (dud) {
+                scr = false;
+              },
+              child: lstW
+            )),
             widget.innerPanel?? Container(),
           ]
         ),
