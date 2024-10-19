@@ -21,7 +21,7 @@ class TopPageContainer extends StatefulWidget {
 }
 
 class TopPageContainerState extends State<TopPageContainer> {
-  GlobalKey<ChatHeaderState> headerKey = GlobalKey();
+  GlobalKey<StarRailChatHeaderState> headerKey = GlobalKey();
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
   Map<String, ChatPage> pages = {};
@@ -35,8 +35,9 @@ class TopPageContainerState extends State<TopPageContainer> {
           backgroundColor: uiSurfaceColor,
           shadowColor: Colors.transparent,
           elevation: 0,
-          title: ChatHeader(key: headerKey, replyer: "", replyerDesc: ""),
-          scrolledUnderElevation: 0,
+            title: StarRailChatHeader(
+                key: headerKey, replyer: "", replyerDesc: ""),
+            scrolledUnderElevation: 0,
           surfaceTintColor: Colors.transparent),
       body: Navigator(
         key: navigatorKey,

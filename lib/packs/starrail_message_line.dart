@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:neo_starrail_chatui/packs/dialogs/starrail_chatimage_dialog.dart';
 import 'package:neo_starrail_chatui/packs/starrail_animatable.dart';
@@ -5,11 +7,10 @@ import 'package:neo_starrail_chatui/packs/starrail_avatar.dart';
 import 'package:neo_starrail_chatui/packs/starrail_button.dart';
 import 'package:neo_starrail_chatui/packs/starrail_colors.dart';
 import 'package:neo_starrail_chatui/packs/starrail_dialog.dart';
-import 'dart:math';
-
 import 'package:neo_starrail_chatui/packs/starrail_rounded_rect.dart';
 
-class StarRailMessageLine extends StatefulWidget implements AnimatableObj {
+class StarRailMessageLine extends StatefulWidget
+    implements StarRailAnimatableObj {
   StarRailMessageLine(
       {
         super.key,

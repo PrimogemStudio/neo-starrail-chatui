@@ -5,7 +5,8 @@ import 'package:neo_starrail_chatui/packs/starrail_avatar.dart';
 import 'package:neo_starrail_chatui/packs/starrail_button.dart';
 import 'package:neo_starrail_chatui/packs/starrail_colors.dart';
 
-class StarRailUserObject extends StatefulWidget implements AnimatableObj {
+class StarRailUserObject extends StatefulWidget
+    implements StarRailAnimatableObj {
   StarRailUserObject({super.key, required this.avatar, required this.title, required this.subtitle, required this.hasNewMsg});
 
   Animation<double>? animation;

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class StarRailAvatar extends StatelessWidget {
-  StarRailAvatar({super.key, required this.avatar});
-  Image avatar;
-  double radius = 30;
+  const StarRailAvatar({super.key, required this.avatar});
+
+  final Image avatar;
+  final double radius = 30;
 
   @override
   Widget build(BuildContext context) {

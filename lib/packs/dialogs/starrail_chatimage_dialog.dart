@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../starrail_colors.dart';
 
 class StarRailChatImageDialog extends StatelessWidget {
-  StarRailChatImageDialog({super.key, required this.image});
+  const StarRailChatImageDialog({super.key, required this.image});
 
-  ImageProvider<Object> image;
+  final ImageProvider<Object> image;
 
   @override
   Widget build(BuildContext context) {

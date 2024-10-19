@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-class ChatHeader extends StatefulWidget {
-  ChatHeader({super.key, required this.replyer, required this.replyerDesc});
+class StarRailChatHeader extends StatefulWidget {
+  StarRailChatHeader(
+      {super.key, required this.replyer, required this.replyerDesc});
 
   String replyer;
   String? replyerDesc;
@@ -11,7 +12,7 @@ class ChatHeader extends StatefulWidget {
   Animation<Offset>? offsetAnimation;
 
   @override
-  State<StatefulWidget> createState() => ChatHeaderState();
+  State<StatefulWidget> createState() => StarRailChatHeaderState();
 }
 
 class StaticCurve extends Curve {
@@ -24,7 +25,8 @@ class StaticCurve extends Curve {
   }
 }
 
-class ChatHeaderState extends State<ChatHeader> with TickerProviderStateMixin {
+class StarRailChatHeaderState extends State<StarRailChatHeader>
+    with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
@@ -43,7 +45,7 @@ class ChatHeaderState extends State<ChatHeader> with TickerProviderStateMixin {
   }
 
   @override
-  void didUpdateWidget(covariant ChatHeader oldWidget) {
+  void didUpdateWidget(covariant StarRailChatHeader oldWidget) {
     super.didUpdateWidget(oldWidget);
     widget.mainAnimation = oldWidget.mainAnimation;
     widget.opacityAnimation = oldWidget.opacityAnimation;

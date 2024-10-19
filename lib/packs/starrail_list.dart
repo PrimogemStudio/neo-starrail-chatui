@@ -2,10 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:neo_starrail_chatui/packs/starrail_animatable.dart';
-import 'package:neo_starrail_chatui/packs/starrail_rounded_rect.dart';
 import 'package:neo_starrail_chatui/packs/starrail_scrollbar.dart';
 
 import 'starrail_colors.dart';
@@ -105,7 +102,7 @@ class StarRailListState extends State<StarRailList> {
   void initState() {
     super.initState();
 
-    _controller.addListener(() {
+    /*_controller.addListener(() {
       final scrollDirection = _controller.position.userScrollDirection;
       if (scrollDirection != ScrollDirection.idle) {
         double scrollEnd = _controller.offset +
@@ -114,7 +111,7 @@ class StarRailListState extends State<StarRailList> {
             _controller.offset == _controller.position.maxScrollExtent) return;
         _controller.jumpTo(scrollEnd);
       }
-    });
+    });*/
 
     timer = Timer.periodic(const Duration(milliseconds: 16), (_) {
       if (scr) _controller.jumpTo(_controller.offset);
@@ -137,8 +134,9 @@ class StarRailListState extends State<StarRailList> {
         if (relI >= widget.list.length) {
           return Container();
         }
-        if ((widget.list[relI] as ListTile).title is AnimatableObj) {
-          ((widget.list[relI] as ListTile).title as AnimatableObj).setAnimation(animation);
+        if ((widget.list[relI] as ListTile).title is StarRailAnimatableObj) {
+          ((widget.list[relI] as ListTile).title as StarRailAnimatableObj)
+              .setAnimation(animation);
         }
 
         return widget.list[relI];
@@ -147,32 +145,29 @@ class StarRailListState extends State<StarRailList> {
       physics: const BouncingScrollPhysics(),
     );
 
-    var lstW = ScrollConfiguration(
+    var cont = ScrollConfiguration(
         behavior: const ScrollBehavior().copyWith(scrollbars: false),
-        child: SrScrollBar(
+        child: StarRailScrollBar(
             controller: _controller,
-            child: widget.view!
-        )
-    );
+            child: GestureDetector(
+                onVerticalDragUpdate: (dud) {
+                  _controller.jumpTo(_controller.offset - dud.delta.dy);
+                },
+                onVerticalDragStart: (dud) {
+                  scr = true;
+                },
+                onVerticalDragEnd: (dud) {
+                  scr = false;
+                },
+                child: widget.view!)));
 
     return Stack(
       alignment: Alignment.topRight,
       children: [
         Column(
           children: [
-            Expanded(child: GestureDetector(
-              onVerticalDragUpdate: (dud) {
-                _controller.jumpTo(_controller.offset - dud.delta.dy);
-              },
-              onVerticalDragStart: (dud) {
-                scr = true;
-              },
-              onVerticalDragEnd: (dud) {
-                scr = false;
-              },
-              child: lstW
-            )),
-            widget.innerPanel?? Container(),
+          Expanded(child: cont),
+          widget.innerPanel?? Container(),
           ]
         ),
         Column(children: [
