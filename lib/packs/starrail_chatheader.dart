@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../headers/header_chatting.dart';
-
 class ChatHeader extends StatefulWidget {
   ChatHeader({super.key, required this.replyer, required this.replyerDesc});
 
@@ -75,9 +73,17 @@ class ChatHeaderState extends State<ChatHeader> with TickerProviderStateMixin {
                 color: Colors.transparent,
                 shadowColor: Colors.transparent,
                 margin: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                child: HeaderChatting(
-                    replyer: widget.replyer,
-                    replyerDesc: widget.replyerDesc
-                ))));
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(widget.replyer,
+                          style: TextStyle(
+                              fontSize: widget.replyerDesc != null ? 18 : 20)),
+                      widget.replyerDesc != null
+                          ? Text(widget.replyerDesc!,
+                              style: const TextStyle(
+                                  fontSize: 13, color: Colors.grey))
+                          : Container()
+                    ]))));
   }
 }
