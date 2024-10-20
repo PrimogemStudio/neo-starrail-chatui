@@ -107,8 +107,15 @@ class TopPageContainerState extends State<TopPageContainer> {
       widget.userObjs.addAll(l);
       widget.loaded = true;
     };
-    socket!.s2cChannelNameChange = (String id, String name) {
-      widget.findObj(id)?.title = name;
+    socket!.s2cChannelDataCallback = (String id, String? name, String? subtitle,
+        Image? avatar, bool? newMsg) {
+      var o = widget.findObj(id);
+      (o?.key as GlobalKey<StarRailUserObjectState>).currentState!.setState(() {
+        if (name != null) o?.title = name;
+        if (subtitle != null) o?.subtitle = subtitle;
+        if (avatar != null) o?.avatar = avatar;
+        if (newMsg != null) o?.hasNewMsg = newMsg;
+      });
     };
   }
 }

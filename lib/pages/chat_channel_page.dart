@@ -60,7 +60,8 @@ class ChatChannelPageState extends State<ChatChannelPage> {
             child: StarRailList(
                 key: listKey, innerPanel: Container(), flatted: true)),
         floatingActionButton: FloatingActionButton(onPressed: () {
-          widget.containerState.socket!.s2cChannelNameChange("0", "test");
+          widget.containerState.socket!
+              .s2cChannelDataCallback("0", "test", null, null, null);
         }));
   }
 }
