@@ -91,12 +91,14 @@ class StarRailListState extends State<StarRailList> {
   }
 
   void scrollToBottom() {
-    WidgetsBinding.instance.addPostFrameCallback((t) {
-      if (_controller.positions.isEmpty) return;
-      _controller.animateTo(_controller.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 750),
-          curve: Curves.easeOutExpo);
-    });
+    if (!widget.flatted) {
+      WidgetsBinding.instance.addPostFrameCallback((t) {
+        if (_controller.positions.isEmpty) return;
+        _controller.animateTo(_controller.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 750),
+            curve: Curves.easeOutExpo);
+      });
+    }
   }
 
   void scrollToBottomImm() {

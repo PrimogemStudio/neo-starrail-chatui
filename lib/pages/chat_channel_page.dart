@@ -13,6 +13,13 @@ class ChatChannelPage extends StatefulWidget implements NamedPage {
   bool loaded = false;
   List<StarRailUserObject> userObjs = <StarRailUserObject>[];
 
+  StarRailUserObject? findObj(String id) {
+    for (var o in userObjs) {
+      if (o.cid == id) return o;
+    }
+    return null;
+  }
+
   @override
   String getName() {
     return "聊天频道";
