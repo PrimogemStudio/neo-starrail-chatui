@@ -18,7 +18,7 @@ class FakeSocket extends AbstractSocket {
         title: "Coder2",
         subtitle: "Test!",
         hasNewMsg: Random.secure().nextInt(2) % 2 == 0,
-        cid: "0",
+        cid: "$_",
       ));
     }
     s2cFetchChannelCallback(l);
