@@ -29,7 +29,7 @@ class ChatChannelPageState extends State<ChatChannelPage> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(milliseconds: 175), () {
       widget.containerState.widget.loaded = false;
       widget.containerState.socket!.c2sFetchChannel();
       while (!widget.containerState.widget.loaded ||

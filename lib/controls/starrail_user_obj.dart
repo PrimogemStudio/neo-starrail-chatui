@@ -7,14 +7,15 @@ import 'package:neo_starrail_chatui/controls/starrail_colors.dart';
 
 class StarRailUserObject extends StatefulWidget
     implements StarRailAnimatableObj {
-  StarRailUserObject(
-      {required this.avatar,
-      required this.title,
-      required this.subtitle,
-      required this.userdesc,
-      required this.hasNewMsg,
-      required this.cid})
-      : super(key: GlobalKey<StarRailUserObjectState>());
+  StarRailUserObject({
+    super.key,
+    required this.avatar,
+    required this.title,
+    required this.subtitle,
+    required this.userdesc,
+    required this.hasNewMsg,
+    required this.cid
+  });
 
   Animation<double>? animation;
   Image avatar;
