@@ -5,15 +5,12 @@ import 'package:neo_starrail_chatui/controls/starrail_chatheader.dart';
 import 'package:neo_starrail_chatui/controls/starrail_colors.dart';
 import 'package:neo_starrail_chatui/controls/starrail_page.dart';
 import 'package:neo_starrail_chatui/controls/starrail_page_route.dart';
-import 'package:neo_starrail_chatui/controls/starrail_user_obj.dart';
 import 'package:neo_starrail_chatui/pages/chat_channel_page.dart';
 import 'package:neo_starrail_chatui/pages/chat_page.dart';
 import 'package:neo_starrail_chatui/pages/login_page.dart';
 
 class TopPageContainer extends StatefulWidget {
   TopPageContainer({super.key});
-
-  List<StarRailUserObject> userObjs = <StarRailUserObject>[];
 
   @override
   State<StatefulWidget> createState() => TopPageContainerState();
@@ -22,6 +19,7 @@ class TopPageContainer extends StatefulWidget {
 class TopPageContainerState extends State<TopPageContainer> {
   GlobalKey<StarRailChatHeaderState> headerKey = GlobalKey();
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+  final ChatChannelPage channelPage = ChatChannelPage();
 
   Map<String, ChatPage> pages = {};
 
@@ -43,9 +41,9 @@ class TopPageContainerState extends State<TopPageContainer> {
         onGenerateRoute: (RouteSettings settings) {
           WidgetBuilder builder;
 
-          if (settings.name == "/") { builder = (BuildContext context) => LoginPage(containerState: this); }
-          else if (settings.name == "/channels") { builder = (BuildContext context) => ChatChannelPage(containerState: this); }
-          else if (settings.name!.startsWith("/chat/uid/")) {
+          if (settings.name == "/") { builder = (BuildContext context) => LoginPage(containerState: this); } else if (settings.name == "/channels") {
+              builder = (BuildContext context) => channelPage;
+            } else if (settings.name!.startsWith("/chat/uid/")) {
             var i = settings.name!.replaceAll("/chat/uid/", "");
             if (!pages.containsKey(i)) {
               pages[i] = ChatPage(containerState: this);

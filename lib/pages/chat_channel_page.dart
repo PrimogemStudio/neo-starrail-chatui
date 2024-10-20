@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:neo_starrail_chatui/controls/starrail_list.dart';
 import 'package:neo_starrail_chatui/controls/starrail_page.dart';
 import 'package:neo_starrail_chatui/controls/starrail_user_obj.dart';
-import 'package:neo_starrail_chatui/pages/container/route_container.dart';
 
 class ChatChannelPage extends StatefulWidget implements NamedPage {
-  ChatChannelPage({super.key, required this.containerState});
+  ChatChannelPage({super.key});
 
-  TopPageContainerState containerState;
+  List<StarRailUserObject> userObjs = <StarRailUserObject>[];
 
   @override
   String getName() {
@@ -34,7 +33,7 @@ class ChatChannelPageState extends State<ChatChannelPage> {
     Future(() {
       while (listKey.currentState == null) {}
 
-      for (var a in widget.containerState.widget.userObjs) {
+      for (var a in widget.userObjs) {
         listKey.currentState!.appendItem(ListTile(
             minVerticalPadding: 0,
             contentPadding: EdgeInsets.zero,
@@ -48,7 +47,7 @@ class ChatChannelPageState extends State<ChatChannelPage> {
   void didUpdateWidget(covariant ChatChannelPage oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    widget.containerState = oldWidget.containerState;
+    widget.userObjs = oldWidget.userObjs;
   }
 
   @override
@@ -59,7 +58,7 @@ class ChatChannelPageState extends State<ChatChannelPage> {
       verticalDirection: VerticalDirection.up,
       children: [
         FloatingActionButton(tooltip: "新增 Channel", onPressed: () {
-          widget.containerState.widget.userObjs.add(StarRailUserObject(
+                    widget.userObjs.add(StarRailUserObject(
                       avatar: Image.asset("assets/avatars/jack253-png.png",
                           width: 50, height: 50),
                       title: "Coder2",
@@ -71,13 +70,12 @@ class ChatChannelPageState extends State<ChatChannelPage> {
           listKey.currentState!.appendItem(ListTile(
               minVerticalPadding: 0,
               contentPadding: EdgeInsets.zero,
-              title: widget.containerState.widget.userObjs.last
-          ));
+                        title: widget.userObjs.last));
         }), 
         FloatingActionButton(tooltip: "删除 Channel", onPressed: () {
-          int i = widget.containerState.widget.userObjs.length - 1;
-          widget.containerState.widget.userObjs.removeAt(i);
-          listKey.currentState!.removeItemAt(i);
+                    int i = widget.userObjs.length - 1;
+                    widget.userObjs.removeAt(i);
+                    listKey.currentState!.removeItemAt(i);
         })
       ]
     ));
