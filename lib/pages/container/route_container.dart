@@ -59,7 +59,7 @@ class TopPageContainerState extends State<TopPageContainer> {
             } else if (settings.name!.startsWith(PREFIX)) {
               var i = settings.name!.replaceAll(PREFIX, "");
               if (!pages.containsKey(i)) {
-              pages[i] = ChatPage(containerState: this);
+                pages[i] = ChatPage(containerState: this);
             }
 
             builder = (BuildContext context) => pages[i]!;
@@ -74,7 +74,7 @@ class TopPageContainerState extends State<TopPageContainer> {
             return genBuilder(
                 builder, settings.name!.startsWith(PREFIX) ? 0 : 0.1, 300);
           },
-      )
+        )
     );
 
     return ImageFiltered(imageFilter: ImageFilter.blur(sigmaX: blursize, sigmaY: blursize), child: i);
