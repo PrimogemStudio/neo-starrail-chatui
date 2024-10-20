@@ -1,0 +1,31 @@
+name: neo_starrail_chatui
+description: "Objected StarRail ChatUI rewrite!"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  fonts:
+    - family: StarRailFont_bundle
+      fonts:
+        - asset: assets/fonts/StarRailFont.ttf
+    - family: u2400
+      fonts:
+        - asset: assets/fonts/u2400.ttf
