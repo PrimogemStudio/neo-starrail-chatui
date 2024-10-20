@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:neo_starrail_chatui/controls/starrail_list.dart';
 import 'package:neo_starrail_chatui/controls/starrail_page.dart';
-import 'package:neo_starrail_chatui/controls/starrail_user_obj.dart';
 
 import 'container/route_container.dart';
 
@@ -11,14 +10,6 @@ class ChatChannelPage extends StatefulWidget implements NamedPage {
   TopPageContainerState containerState;
 
   bool loaded = false;
-  List<StarRailUserObject> userObjs = <StarRailUserObject>[];
-
-  StarRailUserObject? findObj(String id) {
-    for (var o in userObjs) {
-      if (o.cid == id) return o;
-    }
-    return null;
-  }
 
   @override
   String getName() {
@@ -47,7 +38,7 @@ class ChatChannelPageState extends State<ChatChannelPage> {
       widget.containerState.socket!.c2sFetchChannel();
       while (!widget.loaded) {}
 
-      for (var a in widget.userObjs) {
+      for (var a in widget.containerState.widget.userObjs) {
         Future.delayed(const Duration(milliseconds: 50), () {
           listKey.currentState!.appendItem(ListTile(
               minVerticalPadding: 0,
@@ -58,16 +49,9 @@ class ChatChannelPageState extends State<ChatChannelPage> {
     });
   }
 
-  @override
-  void didUpdateWidget(covariant ChatChannelPage oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    widget.userObjs = oldWidget.userObjs;
-  }
-
   void updateName(String id, String name) {
     setState(() {
-      widget.findObj(id)?.title = name;
+      widget.containerState.widget.findObj(id)?.title = name;
     });
   }
 

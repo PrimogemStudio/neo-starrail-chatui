@@ -15,6 +15,15 @@ import 'package:neo_starrail_chatui/pages/login_page.dart';
 class TopPageContainer extends StatefulWidget {
   TopPageContainer({super.key});
 
+  final List<StarRailUserObject> userObjs = <StarRailUserObject>[];
+
+  StarRailUserObject? findObj(String id) {
+    for (var o in userObjs) {
+      if (o.cid == id) return o;
+    }
+    return null;
+  }
+
   @override
   State<StatefulWidget> createState() => TopPageContainerState();
 }
@@ -61,11 +70,11 @@ class TopPageContainerState extends State<TopPageContainer> {
               if (!pages.containsKey(i)) {
                 pages[i] = ChatPage(
                     containerState: this,
-                    name: channelPage!.findObj(i)?.title ?? "",
-                    desc: channelPage!.findObj(i)?.userdesc);
+                    name: widget.findObj(i)?.title ?? "",
+                    desc: widget.findObj(i)?.userdesc);
               } else {
-                pages[i]?.name = channelPage!.findObj(i)?.title ?? "";
-                pages[i]?.desc = channelPage!.findObj(i)?.userdesc;
+                pages[i]?.name = widget.findObj(i)?.title ?? "";
+                pages[i]?.desc = widget.findObj(i)?.userdesc;
               }
 
               builder = (BuildContext context) => pages[i]!;
@@ -96,12 +105,12 @@ class TopPageContainerState extends State<TopPageContainer> {
     socket!.s2cLoginCallback =
         (int i) => navigatorKey.currentState!.pushReplacementNamed('/channels');
     socket!.s2cFetchChannelCallback = (List<StarRailUserObject> l) {
-      channelPage!.userObjs.clear();
-      channelPage!.userObjs.addAll(l);
+      widget.userObjs.clear();
+      widget.userObjs.addAll(l);
       channelPage!.loaded = true;
     };
     socket!.s2cChannelNameChange = (String id, String name) {
-      channelPage!.findObj(id)?.title = name;
+      widget.findObj(id)?.title = name;
     };
   }
 }
