@@ -8,4 +8,5 @@ abstract class AbstractSocket {
   void c2sFetchChannel();
 
   Function s2cFetchChannelCallback = (List<StarRailUserObject> channels) {};
+  Function s2cChannelNameChange = (String id, String name) {};
 }

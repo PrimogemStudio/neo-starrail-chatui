@@ -64,12 +64,21 @@ class ChatChannelPageState extends State<ChatChannelPage> {
     widget.userObjs = oldWidget.userObjs;
   }
 
+  void updateName(String id, String name) {
+    setState(() {
+      widget.findObj(id)?.title = name;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Padding(
             padding: const EdgeInsets.only(left: 30, right: 30),
             child: StarRailList(
-                key: listKey, innerPanel: Container(), flatted: true)));
+                key: listKey, innerPanel: Container(), flatted: true)),
+        floatingActionButton: FloatingActionButton(onPressed: () {
+          widget.containerState.socket!.s2cChannelNameChange("0", "test");
+        }));
   }
 }

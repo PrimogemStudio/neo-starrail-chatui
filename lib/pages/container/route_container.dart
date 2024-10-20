@@ -63,9 +63,12 @@ class TopPageContainerState extends State<TopPageContainer> {
                     containerState: this,
                     name: channelPage!.findObj(i)?.title ?? "",
                     desc: channelPage!.findObj(i)?.userdesc);
+              } else {
+                pages[i]?.name = channelPage!.findObj(i)?.title ?? "";
+                pages[i]?.desc = channelPage!.findObj(i)?.userdesc;
               }
 
-            builder = (BuildContext context) => pages[i]!;
+              builder = (BuildContext context) => pages[i]!;
           }
           else { throw Exception("No page named ${settings.name}"); }
 
@@ -77,8 +80,7 @@ class TopPageContainerState extends State<TopPageContainer> {
             return genBuilder(
                 builder, settings.name!.startsWith(PREFIX) ? 0 : 0.1, 300);
           },
-        )
-    );
+        ));
 
     return ImageFiltered(imageFilter: ImageFilter.blur(sigmaX: blursize, sigmaY: blursize), child: i);
   }
@@ -97,6 +99,9 @@ class TopPageContainerState extends State<TopPageContainer> {
       channelPage!.userObjs.clear();
       channelPage!.userObjs.addAll(l);
       channelPage!.loaded = true;
+    };
+    socket!.s2cChannelNameChange = (String id, String name) {
+      channelPage!.findObj(id)?.title = name;
     };
   }
 }
