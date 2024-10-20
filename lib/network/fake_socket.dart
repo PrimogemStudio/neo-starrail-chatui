@@ -6,7 +6,7 @@ import 'package:neo_starrail_chatui/network/socket_interface.dart';
 import '../controls/starrail_user_obj.dart';
 
 class FakeSocket extends AbstractSocket {
-  int i = 10;
+  int i = 3;
 
   @override
   void c2sFetchChannel() {

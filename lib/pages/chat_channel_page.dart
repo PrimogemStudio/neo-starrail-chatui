@@ -48,11 +48,12 @@ class ChatChannelPageState extends State<ChatChannelPage> {
       while (!widget.loaded) {}
 
       for (var a in widget.userObjs) {
-        listKey.currentState!.appendItem(ListTile(
-            minVerticalPadding: 0,
-            contentPadding: EdgeInsets.zero,
-            title: a
-        ));
+        Future.delayed(const Duration(milliseconds: 50), () {
+          listKey.currentState!.appendItem(ListTile(
+              minVerticalPadding: 0,
+              contentPadding: EdgeInsets.zero,
+              title: a));
+        });
       }
     });
   }

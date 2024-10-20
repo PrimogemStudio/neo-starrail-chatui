@@ -75,8 +75,7 @@ class StarRailUserObjectState extends State<StarRailUserObject> {
         style: srStyleList,
         child: FadeTransition(
           opacity: widget.animation!,
-          child: Padding(padding: const EdgeInsets.only(top: 5, bottom: 5), child: m)
-        ));
+          child: Padding(padding: const EdgeInsets.only(top: 5, bottom: 5), child: m)));
     return Column(children: [
       b,
       Container(
