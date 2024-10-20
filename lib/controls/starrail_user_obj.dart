@@ -11,6 +11,7 @@ class StarRailUserObject extends StatefulWidget
       {required this.avatar,
       required this.title,
       required this.subtitle,
+      required this.userdesc,
       required this.hasNewMsg,
       required this.cid})
       : super(key: GlobalKey<StarRailUserObjectState>());
@@ -19,6 +20,7 @@ class StarRailUserObject extends StatefulWidget
   Image avatar;
   String title;
   String subtitle;
+  String userdesc;
   bool hasNewMsg;
   String cid;
 

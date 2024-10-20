@@ -61,8 +61,8 @@ class TopPageContainerState extends State<TopPageContainer> {
               if (!pages.containsKey(i)) {
                 pages[i] = ChatPage(
                     containerState: this,
-                    name: "Coder2",
-                    desc: "Neo StarRail ChatUI 开发者");
+                    name: channelPage!.findObj(i)?.title ?? "",
+                    desc: channelPage!.findObj(i)?.userdesc);
               }
 
             builder = (BuildContext context) => pages[i]!;

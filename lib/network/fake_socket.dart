@@ -17,6 +17,7 @@ class FakeSocket extends AbstractSocket {
             width: 50, height: 50),
         title: "Coder2",
         subtitle: "Test!",
+        userdesc: "Neo StarRail ChatUI 开发者",
         hasNewMsg: Random.secure().nextInt(2) % 2 == 0,
         cid: "$_",
       ));
