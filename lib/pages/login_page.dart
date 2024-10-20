@@ -48,8 +48,10 @@ class LoginPageState extends State<LoginPage> {
                 style: srStyle,
                 child: const Text('登录'),
                 onPressed: () async {
-                  widget.containerState.loginReq("server", username.text, password.text);
-                })
+                            widget.containerState.initSoc();
+                            widget.containerState.socket!
+                                .c2sLogin(username.text, password.text);
+                          })
           ])))
     );
   }

@@ -79,6 +79,17 @@ class StarRailListState extends State<StarRailList> {
     });
   }
 
+  void removeAll() {
+    setState(() {
+      widget.list.clear();
+      key.currentState!.removeAllItems(
+          (BuildContext context, Animation<double> animation) {
+        return Container();
+      }, duration: Duration.zero);
+      scrollToBottom();
+    });
+  }
+
   void scrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((t) {
       if (_controller.positions.isEmpty) return;
