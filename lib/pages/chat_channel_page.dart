@@ -29,21 +29,25 @@ class ChatChannelPageState extends State<ChatChannelPage> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(milliseconds: 175), () {
-      widget.containerState.widget.loaded = false;
-      widget.containerState.socket!.c2sFetchChannel();
-      while (!widget.containerState.widget.loaded ||
-          listKey.currentState == null) {}
-
-      List<ListTile> l = [];
-
-      for (var a in widget.containerState.widget.userObjs) {
-        l.add(ListTile(
-            minVerticalPadding: 0, contentPadding: EdgeInsets.zero, title: a));
-      }
-
-      listKey.currentState!.initLoad(l);
+    Future.delayed(const Duration(milliseconds: 175), () async {
+      await loadChannels();
     });
+  }
+
+  Future<void> loadChannels() async {
+    widget.containerState.widget.loaded = false;
+    widget.containerState.socket!.c2sFetchChannel();
+    while (
+        !widget.containerState.widget.loaded || listKey.currentState == null) {}
+
+    List<ListTile> l = [];
+
+    for (var a in widget.containerState.widget.userObjs) {
+      l.add(ListTile(
+          minVerticalPadding: 0, contentPadding: EdgeInsets.zero, title: a));
+    }
+
+    listKey.currentState!.initLoad(l);
   }
 
   void updateName(String id, String name) {

@@ -16,6 +16,7 @@ class TopPageContainer extends StatefulWidget {
   TopPageContainer({super.key});
 
   final List<StarRailUserObject> userObjs = <StarRailUserObject>[];
+  final Map<String, Image> avatarCaches = {};
   bool loaded = false;
 
   StarRailUserObject? findObj(String id) {
@@ -100,8 +101,8 @@ class TopPageContainerState extends State<TopPageContainer> {
 
   void initSoc() {
     socket = FakeSocket();
-    socket!.s2cLoginCallback =
-        (int i) => navigatorKey.currentState!.pushReplacementNamed('/channels');
+    socket!.s2cLoginCallback = (String i) =>
+        navigatorKey.currentState!.pushReplacementNamed('/channels');
     socket!.s2cFetchChannelCallback = (List<StarRailUserObject> l) {
       widget.userObjs.clear();
       widget.userObjs.addAll(l);
@@ -117,5 +118,13 @@ class TopPageContainerState extends State<TopPageContainer> {
         if (newMsg != null) o?.hasNewMsg = newMsg;
       });
     };
+
+    socket!.s2cAvatarUpdateCallback = (String id, Image avatar) {
+      widget.avatarCaches[id] = avatar;
+    };
+
+    socket!.uiInternalCheckAvatarCallback =
+        (String id) => widget.avatarCaches.containsKey(id);
+    socket!.uiInternalAvatarCallback = (String id) => widget.avatarCaches[id];
   }
 }
