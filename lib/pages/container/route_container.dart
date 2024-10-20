@@ -59,8 +59,11 @@ class TopPageContainerState extends State<TopPageContainer> {
             } else if (settings.name!.startsWith(PREFIX)) {
               var i = settings.name!.replaceAll(PREFIX, "");
               if (!pages.containsKey(i)) {
-                pages[i] = ChatPage(containerState: this);
-            }
+                pages[i] = ChatPage(
+                    containerState: this,
+                    name: "Coder2",
+                    desc: "Neo StarRail ChatUI 开发者");
+              }
 
             builder = (BuildContext context) => pages[i]!;
           }

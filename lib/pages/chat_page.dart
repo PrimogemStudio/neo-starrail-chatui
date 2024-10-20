@@ -7,20 +7,23 @@ import 'package:neo_starrail_chatui/controls/starrail_panel.dart';
 import 'package:neo_starrail_chatui/pages/container/route_container.dart';
 
 class ChatPage extends StatefulWidget implements NamedPage {
-  ChatPage({super.key, required this.containerState});
+  ChatPage(
+      {super.key,
+      required this.containerState,
+      required this.name,
+      required this.desc});
 
   TopPageContainerState containerState;
   List<ListTile> msgs = [];
 
-  @override
-  String getName() {
-    return "Coder2";
-  }
+  String name;
+  String? desc;
 
   @override
-  String? getDesc() {
-    return "Neo StarRail ChatUI 开发者";
-  }
+  String getName() => name;
+
+  @override
+  String? getDesc() => desc;
 
   @override
   State<StatefulWidget> createState() => ChatPageState();
