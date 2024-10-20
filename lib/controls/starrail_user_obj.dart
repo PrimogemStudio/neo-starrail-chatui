@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:neo_starrail_chatui/packs/starrail_animatable.dart';
-import 'package:neo_starrail_chatui/packs/starrail_avatar.dart';
-import 'package:neo_starrail_chatui/packs/starrail_button.dart';
-import 'package:neo_starrail_chatui/packs/starrail_colors.dart';
+import 'package:neo_starrail_chatui/controls/starrail_animatable.dart';
+import 'package:neo_starrail_chatui/controls/starrail_avatar.dart';
+import 'package:neo_starrail_chatui/controls/starrail_button.dart';
+import 'package:neo_starrail_chatui/controls/starrail_colors.dart';
 
 class StarRailUserObject extends StatefulWidget
     implements StarRailAnimatableObj {
@@ -68,12 +68,8 @@ class StarRailUserObjectState extends State<StarRailUserObject> {
       Expanded(child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [ri])),
     ]);
     var b = TextButton(
-        onPressed: () {
-          Navigator.of(context).pushNamed("/chat/uid/${widget.cid}");
-          setState(() {
-            widget.hasNewMsg = false;
-          });
-        },
+        onPressed: () =>
+            Navigator.of(context).pushNamed("/chat/uid/${widget.cid}"),
         style: srStyleList,
         child: FadeTransition(
           opacity: widget.animation!,

@@ -1,11 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:neo_starrail_chatui/packs/starrail_list.dart';
-import 'package:neo_starrail_chatui/packs/starrail_page.dart';
-import 'package:neo_starrail_chatui/pages/container/top_page_container.dart';
-
-import '../packs/starrail_user_obj.dart';
+import 'package:neo_starrail_chatui/controls/starrail_list.dart';
+import 'package:neo_starrail_chatui/controls/starrail_page.dart';
+import 'package:neo_starrail_chatui/controls/starrail_user_obj.dart';
+import 'package:neo_starrail_chatui/pages/container/route_container.dart';
 
 class ChatChannelPage extends StatefulWidget implements NamedPage {
   ChatChannelPage({super.key, required this.containerState});

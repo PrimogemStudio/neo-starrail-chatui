@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:neo_starrail_chatui/packs/starrail_button.dart';
-import 'package:neo_starrail_chatui/packs/starrail_colors.dart';
+import 'package:neo_starrail_chatui/controls/starrail_button.dart';
+import 'package:neo_starrail_chatui/controls/starrail_colors.dart';
 
 class StarRailPanel extends StatefulWidget {
   StarRailPanel({

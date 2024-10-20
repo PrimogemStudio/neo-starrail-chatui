@@ -1,15 +1,14 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:neo_starrail_chatui/packs/starrail_page.dart';
-import 'package:neo_starrail_chatui/packs/starrail_page_route.dart';
+import 'package:neo_starrail_chatui/controls/starrail_chatheader.dart';
+import 'package:neo_starrail_chatui/controls/starrail_colors.dart';
+import 'package:neo_starrail_chatui/controls/starrail_page.dart';
+import 'package:neo_starrail_chatui/controls/starrail_page_route.dart';
+import 'package:neo_starrail_chatui/controls/starrail_user_obj.dart';
 import 'package:neo_starrail_chatui/pages/chat_channel_page.dart';
 import 'package:neo_starrail_chatui/pages/chat_page.dart';
 import 'package:neo_starrail_chatui/pages/login_page.dart';
-
-import '../../packs/starrail_chatheader.dart';
-import '../../packs/starrail_colors.dart';
-import '../../packs/starrail_user_obj.dart';
 
 class TopPageContainer extends StatefulWidget {
   TopPageContainer({super.key});

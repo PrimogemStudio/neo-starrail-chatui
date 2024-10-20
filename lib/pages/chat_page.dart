@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:neo_starrail_chatui/packs/starrail_list.dart';
-import 'package:neo_starrail_chatui/packs/starrail_message_line.dart';
-import 'package:neo_starrail_chatui/packs/starrail_page.dart';
-import 'package:neo_starrail_chatui/packs/starrail_panel.dart';
-import 'package:neo_starrail_chatui/pages/container/top_page_container.dart';
+import 'package:neo_starrail_chatui/controls/starrail_list.dart';
+import 'package:neo_starrail_chatui/controls/starrail_message_line.dart';
+import 'package:neo_starrail_chatui/controls/starrail_page.dart';
+import 'package:neo_starrail_chatui/controls/starrail_panel.dart';
+import 'package:neo_starrail_chatui/pages/container/route_container.dart';
 
 class ChatPage extends StatefulWidget implements NamedPage {
   ChatPage({super.key, required this.containerState});

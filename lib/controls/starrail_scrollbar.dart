@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:neo_starrail_chatui/packs/starrail_colors.dart';
+import 'package:neo_starrail_chatui/controls/starrail_colors.dart';
 
 class StarRailScrollBar extends Scrollbar {
   const StarRailScrollBar(

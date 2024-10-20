@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:neo_starrail_chatui/packs/starrail_animatable.dart';
-import 'package:neo_starrail_chatui/packs/starrail_scrollbar.dart';
+import 'package:neo_starrail_chatui/controls/starrail_animatable.dart';
+import 'package:neo_starrail_chatui/controls/starrail_scrollbar.dart';
 
 import 'starrail_colors.dart';
 

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:neo_starrail_chatui/packs/starrail_page.dart';
-import 'package:neo_starrail_chatui/pages/container/top_page_container.dart';
-
-import '../packs/starrail_button.dart';
+import 'package:neo_starrail_chatui/controls/starrail_button.dart';
+import 'package:neo_starrail_chatui/controls/starrail_page.dart';
+import 'package:neo_starrail_chatui/pages/container/route_container.dart';
 
 class LoginPage extends StatefulWidget implements NamedPage {
   LoginPage({super.key, required this.containerState});
