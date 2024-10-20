@@ -3,10 +3,14 @@ import 'package:neo_starrail_chatui/packs/starrail_colors.dart';
 
 class StarRailScrollBar extends Scrollbar {
   const StarRailScrollBar(
-      {super.key, required super.child, required super.controller})
+      {super.key,
+      required super.child,
+      required super.controller,
+      required this.flatted})
       : super(thumbVisibility: true,
       radius: Radius.zero
   );
+  final bool flatted;
   @override
   Widget build(BuildContext context) {
     return StarRailScrollbarInternal(
@@ -18,6 +22,7 @@ class StarRailScrollBar extends Scrollbar {
       notificationPredicate: notificationPredicate,
       interactive: interactive,
       scrollbarOrientation: scrollbarOrientation,
+      flatted: flatted,
       child: child,
     );
   }
@@ -35,12 +40,14 @@ class StarRailScrollbarInternal extends RawScrollbar {
     ScrollNotificationPredicate? notificationPredicate,
     super.interactive,
     super.scrollbarOrientation,
-  }) : super(
+      required this.flatted}) : super(
     fadeDuration: Duration.zero,
     timeToFade: Duration.zero,
     pressDuration: Duration.zero,
     notificationPredicate: notificationPredicate ?? defaultScrollNotificationPredicate,
   );
+
+  final bool flatted;
 
   @override
   StarRailScrollbarInternalState createState() =>
@@ -57,11 +64,11 @@ class StarRailScrollbarInternalState
   @override
   void updateScrollbarPainter() {
     scrollbarPainter
-      ..color = uiViewBarMain
-      ..trackColor = uiViewBarBg
+      ..color = widget.flatted ? Colors.transparent : uiViewBarMain
+      ..trackColor = widget.flatted ? Colors.transparent : uiViewBarBg
       ..trackBorderColor = Colors.transparent
       ..textDirection = Directionality.of(context)
-      ..thickness = 3
+      ..thickness = widget.flatted ? 0 : 3
       ..radius = Radius.zero
       ..crossAxisMargin = 0
       ..mainAxisMargin = 0

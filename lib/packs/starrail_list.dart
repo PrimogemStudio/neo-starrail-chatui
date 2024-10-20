@@ -102,17 +102,6 @@ class StarRailListState extends State<StarRailList> {
   void initState() {
     super.initState();
 
-    /*_controller.addListener(() {
-      final scrollDirection = _controller.position.userScrollDirection;
-      if (scrollDirection != ScrollDirection.idle) {
-        double scrollEnd = _controller.offset +
-            (scrollDirection == ScrollDirection.reverse ? -50 : 50);
-        if (_controller.offset == _controller.position.minScrollExtent ||
-            _controller.offset == _controller.position.maxScrollExtent) return;
-        _controller.jumpTo(scrollEnd);
-      }
-    });*/
-
     timer = Timer.periodic(const Duration(milliseconds: 16), (_) {
       if (scr) _controller.jumpTo(_controller.offset);
     });
@@ -149,6 +138,7 @@ class StarRailListState extends State<StarRailList> {
         behavior: const ScrollBehavior().copyWith(scrollbars: false),
         child: StarRailScrollBar(
             controller: _controller,
+            flatted: widget.flatted,
             child: GestureDetector(
                 onVerticalDragUpdate: (dud) {
                   _controller.jumpTo(_controller.offset - dud.delta.dy);

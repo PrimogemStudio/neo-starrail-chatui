@@ -61,11 +61,13 @@ class ChatChannelPageState extends State<ChatChannelPage> {
       children: [
         FloatingActionButton(tooltip: "新增 Channel", onPressed: () {
           widget.containerState.widget.userObjs.add(StarRailUserObject(
-              avatar: Image.asset("assets/avatars/jack253-png.png", width: 50, height: 50),
-              title: "Coder2",
-              subtitle: "Test!",
-              hasNewMsg: Random.secure().nextInt(2) % 2 == 0
-          ));
+                      avatar: Image.asset("assets/avatars/jack253-png.png",
+                          width: 50, height: 50),
+                      title: "Coder2",
+                      subtitle: "Test!",
+                      hasNewMsg: Random.secure().nextInt(2) % 2 == 0,
+                      cid: "0",
+                    ));
 
           listKey.currentState!.appendItem(ListTile(
               minVerticalPadding: 0,

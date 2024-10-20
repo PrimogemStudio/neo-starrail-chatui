@@ -26,9 +26,9 @@ class StarRailMessageLine extends StatefulWidget
     if (self) msgResv = true;
   }
 
-  final Image avatar;
+  Image avatar;
   final bool self;
-  final String username;
+  String username;
   final String text;
   final Function onLoadComplete;
   final ImageProvider<Object>? image;

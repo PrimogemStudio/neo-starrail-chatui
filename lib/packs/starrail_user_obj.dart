@@ -7,13 +7,20 @@ import 'package:neo_starrail_chatui/packs/starrail_colors.dart';
 
 class StarRailUserObject extends StatefulWidget
     implements StarRailAnimatableObj {
-  StarRailUserObject({super.key, required this.avatar, required this.title, required this.subtitle, required this.hasNewMsg});
+  StarRailUserObject(
+      {super.key,
+      required this.avatar,
+      required this.title,
+      required this.subtitle,
+      required this.hasNewMsg,
+      required this.cid});
 
   Animation<double>? animation;
   Image avatar;
   String title;
   String subtitle;
   bool hasNewMsg;
+  String cid;
 
   @override
   void setAnimation(Animation<double> a) {
@@ -35,6 +42,7 @@ class StarRailUserObjectState extends State<StarRailUserObject> {
     widget.subtitle = oldWidget.subtitle;
     widget.hasNewMsg = oldWidget.hasNewMsg;
   }
+
   @override
   Widget build(BuildContext context) {
     var lft = Expanded(child: Row(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.center, children: [
@@ -61,7 +69,10 @@ class StarRailUserObjectState extends State<StarRailUserObject> {
     ]);
     var b = TextButton(
         onPressed: () {
-          Navigator.of(context).pushNamed("/chat/uid/0");
+          Navigator.of(context).pushNamed("/chat/uid/${widget.cid}");
+          setState(() {
+            widget.hasNewMsg = false;
+          });
         },
         style: srStyleList,
         child: FadeTransition(
