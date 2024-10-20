@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:neo_starrail_chatui/controls/sr_scrollbar.dart';
+import 'package:neo_starrail_chatui/controls/sr_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,7 +33,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  ScrollController controller = ScrollController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,16 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-        body: ScrollConfiguration(
-            behavior: const ScrollBehavior().copyWith(scrollbars: false),
-            child: StarRailScrollBar(
-                controller: controller,
-                flatted: false,
-                child: ListView.builder(
-                    itemBuilder: (a, b) {
-                      return Text("$b");
-                    },
-                    itemCount: 100,
-                    controller: controller))));
+        body: SrList(invertDrag: true),
+        floatingActionButton: FloatingActionButton(onPressed: () {}));
   }
 }

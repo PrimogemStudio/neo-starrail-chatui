@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:neo_starrail_chatui/controls/sr_colors.dart';
 
-class StarRailScrollBar extends Scrollbar {
-  const StarRailScrollBar(
+class SrScrollBar extends Scrollbar {
+  const SrScrollBar(
       {super.key,
       required super.child,
       required super.controller,
@@ -12,7 +12,7 @@ class StarRailScrollBar extends Scrollbar {
 
   @override
   Widget build(BuildContext context) {
-    return StarRailScrollbarInternal(
+    return SrScrollbarInternal(
       controller: controller,
       thumbVisibility: thumbVisibility,
       trackVisibility: trackVisibility,
@@ -27,8 +27,8 @@ class StarRailScrollBar extends Scrollbar {
   }
 }
 
-class StarRailScrollbarInternal extends RawScrollbar {
-  const StarRailScrollbarInternal(
+class SrScrollbarInternal extends RawScrollbar {
+  const SrScrollbarInternal(
       {super.key,
       required super.child,
       super.controller,
@@ -51,12 +51,10 @@ class StarRailScrollbarInternal extends RawScrollbar {
   final bool flatted;
 
   @override
-  StarRailScrollbarInternalState createState() =>
-      StarRailScrollbarInternalState();
+  SrScrollbarInternalState createState() => SrScrollbarInternalState();
 }
 
-class StarRailScrollbarInternalState
-    extends RawScrollbarState<StarRailScrollbarInternal> {
+class SrScrollbarInternalState extends RawScrollbarState<SrScrollbarInternal> {
   @override
   bool get showScrollbar => true;
 
