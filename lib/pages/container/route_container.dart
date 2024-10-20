@@ -93,6 +93,7 @@ class TopPageContainerState extends State<TopPageContainer> {
     socket!.s2cFetchChannelCallback = (List<StarRailUserObject> l) {
       channelPage!.userObjs.clear();
       channelPage!.userObjs.addAll(l);
+      channelPage!.loaded = true;
     };
   }
 }

@@ -6,12 +6,10 @@ import 'package:neo_starrail_chatui/network/socket_interface.dart';
 import '../controls/starrail_user_obj.dart';
 
 class FakeSocket extends AbstractSocket {
-  int i = 1;
+  int i = 10;
 
   @override
   void c2sFetchChannel() {
-    print(StackTrace.current);
-
     List<StarRailUserObject> l = [];
     for (int _ = 0; _ < i; _++) {
       l.add(StarRailUserObject(
@@ -24,7 +22,6 @@ class FakeSocket extends AbstractSocket {
       ));
     }
     s2cFetchChannelCallback(l);
-    i++;
   }
 
   @override

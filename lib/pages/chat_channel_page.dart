@@ -10,6 +10,7 @@ class ChatChannelPage extends StatefulWidget implements NamedPage {
 
   TopPageContainerState containerState;
 
+  bool loaded = false;
   List<StarRailUserObject> userObjs = <StarRailUserObject>[];
 
   @override
@@ -35,8 +36,10 @@ class ChatChannelPageState extends State<ChatChannelPage> {
     Future(() {
       while (listKey.currentState == null) {}
 
+      widget.loaded = false;
       widget.containerState.socket!.c2sFetchChannel();
-      listKey.currentState!.removeAll();
+      while (!widget.loaded) {}
+
       for (var a in widget.userObjs) {
         listKey.currentState!.appendItem(ListTile(
             minVerticalPadding: 0,
