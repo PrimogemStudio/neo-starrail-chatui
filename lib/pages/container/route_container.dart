@@ -16,6 +16,7 @@ class TopPageContainer extends StatefulWidget {
   TopPageContainer({super.key});
 
   final List<StarRailUserObject> userObjs = <StarRailUserObject>[];
+  bool loaded = false;
 
   StarRailUserObject? findObj(String id) {
     for (var o in userObjs) {
@@ -31,7 +32,6 @@ class TopPageContainer extends StatefulWidget {
 class TopPageContainerState extends State<TopPageContainer> {
   GlobalKey<StarRailChatHeaderState> headerKey = GlobalKey();
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
-  ChatChannelPage? channelPage;
 
   Map<String, ChatPage> pages = {};
 
@@ -61,10 +61,8 @@ class TopPageContainerState extends State<TopPageContainer> {
               builder =
                   (BuildContext context) => LoginPage(containerState: this);
             } else if (settings.name == "/channels") {
-              builder = (BuildContext context) {
-                channelPage ??= ChatChannelPage(containerState: this);
-                return channelPage!;
-              };
+              builder = (BuildContext context) =>
+                  ChatChannelPage(containerState: this);
             } else if (settings.name!.startsWith(PREFIX)) {
               var i = settings.name!.replaceAll(PREFIX, "");
               if (!pages.containsKey(i)) {
@@ -107,7 +105,7 @@ class TopPageContainerState extends State<TopPageContainer> {
     socket!.s2cFetchChannelCallback = (List<StarRailUserObject> l) {
       widget.userObjs.clear();
       widget.userObjs.addAll(l);
-      channelPage!.loaded = true;
+      widget.loaded = true;
     };
     socket!.s2cChannelNameChange = (String id, String name) {
       widget.findObj(id)?.title = name;

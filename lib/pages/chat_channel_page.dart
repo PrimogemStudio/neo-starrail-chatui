@@ -9,8 +9,6 @@ class ChatChannelPage extends StatefulWidget implements NamedPage {
 
   TopPageContainerState containerState;
 
-  bool loaded = false;
-
   @override
   String getName() {
     return "聊天频道";
@@ -31,21 +29,20 @@ class ChatChannelPageState extends State<ChatChannelPage> {
   void initState() {
     super.initState();
 
-    Future(() {
-      while (listKey.currentState == null) {}
-
-      widget.loaded = false;
+    Future.delayed(const Duration(seconds: 1), () {
+      widget.containerState.widget.loaded = false;
       widget.containerState.socket!.c2sFetchChannel();
-      while (!widget.loaded) {}
+      while (!widget.containerState.widget.loaded ||
+          listKey.currentState == null) {}
+
+      List<ListTile> l = [];
 
       for (var a in widget.containerState.widget.userObjs) {
-        Future.delayed(const Duration(milliseconds: 50), () {
-          listKey.currentState!.appendItem(ListTile(
-              minVerticalPadding: 0,
-              contentPadding: EdgeInsets.zero,
-              title: a));
-        });
+        l.add(ListTile(
+            minVerticalPadding: 0, contentPadding: EdgeInsets.zero, title: a));
       }
+
+      listKey.currentState!.initLoad(l);
     });
   }
 

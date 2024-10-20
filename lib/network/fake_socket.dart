@@ -6,7 +6,7 @@ import 'package:neo_starrail_chatui/network/socket_interface.dart';
 import '../controls/starrail_user_obj.dart';
 
 class FakeSocket extends AbstractSocket {
-  int i = 3;
+  int i = 15;
 
   @override
   void c2sFetchChannel() {
@@ -18,7 +18,7 @@ class FakeSocket extends AbstractSocket {
         title: "Coder2",
         subtitle: "Test!",
         userdesc: "Neo StarRail ChatUI 开发者",
-        hasNewMsg: Random.secure().nextInt(2) % 2 == 0,
+        hasNewMsg: _ % 2 == 0,
         cid: "$_",
       ));
     }
