@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:neo_starrail_chatui/controls/sr_scrollbar.dart';
@@ -10,6 +11,7 @@ class SrList extends StatefulWidget {
 
   List<ListTile> contents = [];
   int loadOffset = 0;
+  final int pageSize = 4;
 
   @override
   State<StatefulWidget> createState() => SrListState();
@@ -27,6 +29,14 @@ class SrListState extends State<SrList> {
     Timer.periodic(const Duration(milliseconds: 16), (_) {
       if (scrolling) controller.jumpTo(controller.offset);
     });
+  }
+
+  @override
+  void didUpdateWidget(covariant SrList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    widget.contents = oldWidget.contents;
+    widget.loadOffset = oldWidget.loadOffset;
   }
 
   void scrollToBottom() {
@@ -54,6 +64,20 @@ class SrListState extends State<SrList> {
     });
   }
 
+  void initAll(List<ListTile> l) {
+    widget.contents.addAll(l);
+    widget.loadOffset = max(0, l.length - widget.pageSize);
+    listKey.currentState!.insertAllItems(0, l.length - widget.loadOffset);
+  }
+
+  void loadMore() {
+    setState(() {
+      var i = widget.loadOffset;
+      widget.loadOffset = max(0, widget.loadOffset - widget.pageSize);
+      listKey.currentState!.insertAllItems(0, i - widget.loadOffset);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -64,9 +88,11 @@ class SrListState extends State<SrList> {
                 flatted: false,
                 child: AnimatedList(
                     key: listKey,
-                    itemBuilder: (_, b, a) =>
-                        FadeTransition(opacity: a, child: widget.contents[b]),
-                    initialItemCount: widget.contents.length,
+                    itemBuilder: (_, b, a) => FadeTransition(
+                        opacity: a,
+                        child: widget.contents[b + widget.loadOffset]),
+                    initialItemCount:
+                        widget.contents.length - widget.loadOffset,
                     controller: controller))),
         onVerticalDragStart: (dud) {
           scrolling = true;

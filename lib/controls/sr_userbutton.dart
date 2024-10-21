@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:neo_starrail_chatui/controls/sr_buttonstyles.dart';
 
 class SrUserButton extends StatefulWidget {
-  const SrUserButton({super.key, required this.onPressed});
+  const SrUserButton({super.key, required this.onPressed, required this.data});
 
   final VoidCallback onPressed;
+  final String data;
 
   @override
   State<StatefulWidget> createState() => SrUserButtonState();
@@ -16,6 +17,6 @@ class SrUserButtonState extends State<SrUserButton> {
     return TextButton(
         onPressed: widget.onPressed,
         style: srStyleList,
-        child: const Text("data"));
+        child: Text(widget.data));
   }
 }

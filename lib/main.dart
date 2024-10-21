@@ -45,13 +45,23 @@ class _MyHomePageState extends State<MyHomePage> {
         body: SrList(key: listKey, invertDrag: true),
         floatingActionButton: Column(children: [
           FloatingActionButton(onPressed: () {
-            listKey.currentState!
-                .add(ListTile(title: SrUserButton(onPressed: () {})));
+            listKey.currentState!.add(
+                ListTile(title: SrUserButton(onPressed: () {}, data: "test")));
             listKey.currentState!.scrollToBottom();
           }),
           FloatingActionButton(onPressed: () {
             listKey.currentState!.removeAt(0);
-            listKey.currentState!.scrollToBottom();
+          }),
+          FloatingActionButton(onPressed: () {
+            List<ListTile> d = [];
+            for (int i = 0; i < 100; i++) {
+              d.add(ListTile(
+                  title: SrUserButton(onPressed: () {}, data: "data$i")));
+            }
+            listKey.currentState!.initAll(d);
+          }),
+          FloatingActionButton(onPressed: () {
+            listKey.currentState!.loadMore();
           })
         ]));
   }
