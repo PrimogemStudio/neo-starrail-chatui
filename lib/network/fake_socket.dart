@@ -4,6 +4,6 @@ class FakeSocket extends AbstractSocket {
   @override
   Future<String> c2sLogin(String name, String password) async {
     return Future.delayed(
-        const Duration(milliseconds: 700), () => "$password@$name");
+        const Duration(milliseconds: 3700), () => "$password@$name");
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:neo_starrail_chatui/controls/sr_page_funcs.dart';
 
 import '../../controls/sr_colors.dart';
@@ -40,6 +41,11 @@ class NavigatorTopState extends State<NavigatorTop> {
     return genBuilder((BuildContext context) {
       if (settings.name == "/") {
         return const LoginPage();
+      } else if (settings.name == "/logging") {
+        return Scaffold(
+            body: Center(
+                child: LoadingAnimationWidget.waveDots(
+                    color: uiBtnBorder, size: 100)));
       } else {
         return Scaffold(body: Text(settings.name!));
       }
