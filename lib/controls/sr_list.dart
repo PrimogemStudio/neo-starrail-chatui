@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:neo_starrail_chatui/controls/sr_animatableobject.dart';
 import 'package:neo_starrail_chatui/controls/sr_scrollbar.dart';
 
 class SrList extends StatefulWidget {
@@ -88,9 +89,13 @@ class SrListState extends State<SrList> {
                 flatted: false,
                 child: AnimatedList(
                     key: listKey,
-                    itemBuilder: (_, b, a) => FadeTransition(
-                        opacity: a,
-                        child: widget.contents[b + widget.loadOffset]),
+                    itemBuilder: (_, b, a) {
+                      var item = widget.contents[b + widget.loadOffset];
+                      if (item.title is SrAnimatedObject)
+                        (item.title as SrAnimatedObject).setAnimation(a);
+
+                      return item;
+                    },
                     initialItemCount:
                         widget.contents.length - widget.loadOffset,
                     controller: controller))),
