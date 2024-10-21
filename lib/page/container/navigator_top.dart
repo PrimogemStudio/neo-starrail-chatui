@@ -31,12 +31,18 @@ class NavigatorTopState extends State<NavigatorTop> {
         onGenerateRoute: (RouteSettings settings) => genRoute(settings),
       ),
       floatingActionButton: FloatingActionButton(onPressed: () {
-        navigatorKey.currentState!.pushReplacementNamed("test!");
+        navigatorKey.currentState!.pushReplacementNamed("/");
       }),
     );
   }
 
   PageRouteBuilder genRoute(RouteSettings settings) {
-    return genBuilder((BuildContext context) => const LoginPage(), 0.1, 300);
+    return genBuilder((BuildContext context) {
+      if (settings.name == "/") {
+        return const LoginPage();
+      } else {
+        return const Scaffold(body: Text("data"));
+      }
+    }, 0.1, 300);
   }
 }

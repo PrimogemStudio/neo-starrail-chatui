@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '../controls/sr_buttonstyles.dart';
+import 'package:neo_starrail_chatui/controls/sr_buttonstyles.dart';
+import 'package:neo_starrail_chatui/main.dart';
+import 'package:neo_starrail_chatui/network/fake_socket.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -20,7 +21,11 @@ class LoginPageState extends State<LoginPage> {
                 width: MediaQuery.of(context).size.width / 2,
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      DropdownButton(
+                          items: const [DropdownMenuItem(child: Text("本地服务端"))],
+                          onChanged: (a) {}),
                       TextField(
                           controller: username,
                           decoration: const InputDecoration(
@@ -37,7 +42,13 @@ class LoginPageState extends State<LoginPage> {
                       ElevatedButton(
                           style: srStyle,
                           child: const Text('登录'),
-                          onPressed: () async {})
+                          onPressed: () async {
+                            socket = FakeSocket();
+                            var i =
+                                socket!.c2sLogin(username.text, password.text);
+                            Navigator.of(context).pushReplacementNamed("//");
+                            print(await i);
+                          })
                     ]))));
   }
 }

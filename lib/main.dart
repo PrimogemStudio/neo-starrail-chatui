@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:neo_starrail_chatui/network/abstract_socket.dart';
 import 'package:neo_starrail_chatui/page/container/navigator_top.dart';
 
 import 'controls/sr_colors.dart';
+
+AbstractSocket? socket;
 
 void main() {
   runApp(const MyApp());
