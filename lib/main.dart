@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:neo_starrail_chatui/controls/sr_header.dart';
 import 'package:neo_starrail_chatui/controls/sr_list.dart';
 import 'package:neo_starrail_chatui/controls/sr_userbutton.dart';
 
@@ -35,13 +36,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   GlobalKey<SrListState> listKey = GlobalKey();
+  GlobalKey<SrHeaderState> headerKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
+          title: SrHeader(key: headerKey, replyer: "", replyerDesc: null),
+        ),
         body: SrList(key: listKey, invertDrag: true),
         floatingActionButton: Column(children: [
           FloatingActionButton(onPressed: () {
@@ -62,6 +64,10 @@ class _MyHomePageState extends State<MyHomePage> {
           }),
           FloatingActionButton(onPressed: () {
             listKey.currentState!.loadMore();
+          }),
+          FloatingActionButton(onPressed: () {
+            headerKey.currentState!
+                .updateText("${DateTime.timestamp()}", "Test!");
           })
         ]));
   }
