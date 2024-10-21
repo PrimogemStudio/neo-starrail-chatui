@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:neo_starrail_chatui/controls/sr_header.dart';
-import 'package:neo_starrail_chatui/controls/sr_list.dart';
-import 'package:neo_starrail_chatui/controls/sr_userbutton.dart';
+import 'package:neo_starrail_chatui/page/container/navigator_top.dart';
 
 import 'controls/sr_colors.dart';
 
@@ -22,58 +20,6 @@ class MyApp extends StatelessWidget {
         fontFamily: "StarRailFont_bundle",
         fontFamilyFallback: const ["u2400"]
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  GlobalKey<SrListState> listKey = GlobalKey();
-  GlobalKey<SrHeaderState> headerKey = GlobalKey();
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-            backgroundColor: uiSurfaceColor,
-            shadowColor: Colors.transparent,
-            elevation: 0,
-            title: SrHeader(key: headerKey, replyer: "", replyerDesc: ""),
-            scrolledUnderElevation: 0,
-            surfaceTintColor: Colors.transparent),
-        body: SrList(key: listKey, invertDrag: true, flatted: false),
-        floatingActionButton: Column(children: [
-          FloatingActionButton(onPressed: () {
-            listKey.currentState!.add(
-                ListTile(title: SrUserButton(onPressed: () {}, data: "test")));
-            listKey.currentState!.scrollToBottom();
-          }),
-          FloatingActionButton(onPressed: () {
-            listKey.currentState!.removeAt(0);
-          }),
-          FloatingActionButton(onPressed: () {
-            List<ListTile> d = [];
-            for (int i = 0; i < 100; i++) {
-              d.add(ListTile(
-                  title: SrUserButton(onPressed: () {}, data: "data$i")));
-            }
-            listKey.currentState!.initAll(d);
-          }),
-          FloatingActionButton(onPressed: () {
-            listKey.currentState!.loadMore();
-          }),
-          FloatingActionButton(onPressed: () {
-            headerKey.currentState!
-                .updateText("${DateTime.timestamp()}", "Test!");
-          })
-        ]));
+        home: const NavigatorTop());
   }
 }
