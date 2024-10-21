@@ -8,20 +8,39 @@ class SrList extends StatefulWidget {
 
   bool invertDrag;
 
+  List<ListTile> contents = [];
+
   @override
   State<StatefulWidget> createState() => SrListState();
 }
 
 class SrListState extends State<SrList> {
   ScrollController controller = ScrollController();
+  GlobalKey<AnimatedListState> listKey = GlobalKey();
   bool scrolling = false;
 
   @override
   void initState() {
     super.initState();
 
-    Timer.periodic(const Duration(milliseconds: 16), (d) {
+    Timer.periodic(const Duration(milliseconds: 16), (_) {
       if (scrolling) controller.jumpTo(controller.offset);
+    });
+  }
+
+  void scrollToBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (controller.positions.isEmpty) return;
+      controller.animateTo(controller.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 750),
+          curve: Curves.easeOutExpo);
+    });
+  }
+
+  void add(ListTile t) {
+    setState(() {
+      widget.contents.add(t);
+      listKey.currentState!.insertItem(widget.contents.length - 1);
     });
   }
 
@@ -33,11 +52,11 @@ class SrListState extends State<SrList> {
             child: SrScrollBar(
                 controller: controller,
                 flatted: false,
-                child: ListView.builder(
-                    itemBuilder: (a, b) {
-                      return Text("$b");
-                    },
-                    itemCount: 100,
+                child: AnimatedList(
+                    key: listKey,
+                    itemBuilder: (_, b, a) =>
+                        FadeTransition(opacity: a, child: widget.contents[b]),
+                    initialItemCount: widget.contents.length,
                     controller: controller))),
         onVerticalDragStart: (dud) {
           scrolling = true;

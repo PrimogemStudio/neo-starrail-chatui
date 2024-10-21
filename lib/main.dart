@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:neo_starrail_chatui/controls/sr_list.dart';
+import 'package:neo_starrail_chatui/controls/sr_userbutton.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,6 +34,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  GlobalKey<SrListState> listKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +42,10 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-        body: SrList(invertDrag: true),
-        floatingActionButton: FloatingActionButton(onPressed: () {}));
+        body: SrList(key: listKey, invertDrag: true),
+        floatingActionButton: FloatingActionButton(onPressed: () {
+          listKey.currentState!
+              .add(ListTile(title: SrUserButton(onPressed: () {})));
+        }));
   }
 }
