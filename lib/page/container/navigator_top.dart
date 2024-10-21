@@ -3,6 +3,7 @@ import 'package:neo_starrail_chatui/controls/sr_page_funcs.dart';
 
 import '../../controls/sr_colors.dart';
 import '../../controls/sr_header.dart';
+import '../login_page.dart';
 
 class NavigatorTop extends StatefulWidget {
   const NavigatorTop({super.key});
@@ -18,20 +19,24 @@ class NavigatorTopState extends State<NavigatorTop> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            backgroundColor: uiSurfaceColor,
-            shadowColor: Colors.transparent,
-            elevation: 0,
-            title: SrHeader(key: headerKey, replyer: "", replyerDesc: ""),
-            scrolledUnderElevation: 0,
-            surfaceTintColor: Colors.transparent),
-        body: Navigator(
-          key: navigatorKey,
-          onGenerateRoute: (RouteSettings settings) => genRoute(settings),
-        ));
+      appBar: AppBar(
+          backgroundColor: uiSurfaceColor,
+          shadowColor: Colors.transparent,
+          elevation: 0,
+          title: SrHeader(key: headerKey, replyer: "", replyerDesc: ""),
+          scrolledUnderElevation: 0,
+          surfaceTintColor: Colors.transparent),
+      body: Navigator(
+        key: navigatorKey,
+        onGenerateRoute: (RouteSettings settings) => genRoute(settings),
+      ),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        navigatorKey.currentState!.pushReplacementNamed("test!");
+      }),
+    );
   }
 
   PageRouteBuilder genRoute(RouteSettings settings) {
-    return genBuilder((BuildContext context) => const Text("test!"), 0.1, 300);
+    return genBuilder((BuildContext context) => const LoginPage(), 0.1, 300);
   }
 }
