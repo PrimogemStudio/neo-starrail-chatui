@@ -43,9 +43,16 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
         body: SrList(key: listKey, invertDrag: true),
-        floatingActionButton: FloatingActionButton(onPressed: () {
-          listKey.currentState!
-              .add(ListTile(title: SrUserButton(onPressed: () {})));
-        }));
+        floatingActionButton: Column(children: [
+          FloatingActionButton(onPressed: () {
+            listKey.currentState!
+                .add(ListTile(title: SrUserButton(onPressed: () {})));
+            listKey.currentState!.scrollToBottom();
+          }),
+          FloatingActionButton(onPressed: () {
+            listKey.currentState!.removeAt(0);
+            listKey.currentState!.scrollToBottom();
+          })
+        ]));
   }
 }

@@ -9,6 +9,7 @@ class SrList extends StatefulWidget {
   bool invertDrag;
 
   List<ListTile> contents = [];
+  int loadOffset = 0;
 
   @override
   State<StatefulWidget> createState() => SrListState();
@@ -41,6 +42,15 @@ class SrListState extends State<SrList> {
     setState(() {
       widget.contents.add(t);
       listKey.currentState!.insertItem(widget.contents.length - 1);
+    });
+  }
+
+  void removeAt(int i) {
+    setState(() {
+      var l = widget.contents.removeAt(i);
+      listKey.currentState!.removeItem(i, (a, b) {
+        return FadeTransition(opacity: b, child: l);
+      });
     });
   }
 
