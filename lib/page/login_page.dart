@@ -44,10 +44,14 @@ class LoginPageState extends State<LoginPage> {
                           child: const Text('登录'),
                           onPressed: () async {
                             socket = FakeSocket();
-                            var i =
-                                socket!.c2sLogin(username.text, password.text);
-                            Navigator.of(context).pushReplacementNamed("//");
-                            print(await i);
+
+                            var state = Navigator.of(context);
+                            socket!
+                                .c2sLogin(username.text, password.text)
+                                .then((d) {
+                              state.pushReplacementNamed("/'$d'");
+                            });
+                            state.pushReplacementNamed("/logging");
                           })
                     ]))));
   }

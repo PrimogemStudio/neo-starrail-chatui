@@ -41,7 +41,7 @@ class NavigatorTopState extends State<NavigatorTop> {
       if (settings.name == "/") {
         return const LoginPage();
       } else {
-        return const Scaffold(body: Text("data"));
+        return Scaffold(body: Text(settings.name!));
       }
     }, 0.1, 300);
   }
