@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
             title: SrHeader(key: headerKey, replyer: "", replyerDesc: ""),
             scrolledUnderElevation: 0,
             surfaceTintColor: Colors.transparent),
-        body: SrList(key: listKey, invertDrag: true),
+        body: SrList(key: listKey, invertDrag: true, flatted: false),
         floatingActionButton: Column(children: [
           FloatingActionButton(onPressed: () {
             listKey.currentState!.add(

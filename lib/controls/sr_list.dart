@@ -3,12 +3,14 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:neo_starrail_chatui/controls/sr_animatableobject.dart';
+import 'package:neo_starrail_chatui/controls/sr_colors.dart';
 import 'package:neo_starrail_chatui/controls/sr_scrollbar.dart';
 
 class SrList extends StatefulWidget {
-  SrList({super.key, required this.invertDrag});
+  SrList({super.key, required this.invertDrag, required this.flatted});
 
   bool invertDrag;
+  bool flatted;
 
   List<ListTile> contents = [];
   int loadOffset = 0;
@@ -81,7 +83,7 @@ class SrListState extends State<SrList> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    var list = GestureDetector(
         child: ScrollConfiguration(
             behavior: const ScrollBehavior().copyWith(scrollbars: false),
             child: SrScrollBar(
@@ -91,8 +93,9 @@ class SrListState extends State<SrList> {
                     key: listKey,
                     itemBuilder: (_, b, a) {
                       var item = widget.contents[b + widget.loadOffset];
-                      if (item.title is SrAnimatedObject)
+                      if (item.title is SrAnimatedObject) {
                         (item.title as SrAnimatedObject).setAnimation(a);
+                      }
 
                       return item;
                     },
@@ -109,5 +112,31 @@ class SrListState extends State<SrList> {
         onVerticalDragEnd: (dud) {
           scrolling = false;
         });
+
+    return Stack(
+      alignment: Alignment.topRight,
+      children: [
+        list,
+        Column(children: [
+          Container(
+            height: 1,
+            color: uiViewSplit,
+          ),
+          Container(
+            height: 10,
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    widget.flatted ? Colors.transparent : uiSurfaceColor,
+                    widget.flatted ? Colors.transparent : uiSurfaceColorTrans
+                  ]),
+            ),
+          )
+        ])
+      ],
+    );
   }
 }
