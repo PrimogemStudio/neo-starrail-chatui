@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:neo_starrail_chatui/controls/sr_buttonstyles.dart';
 import 'package:neo_starrail_chatui/main.dart';
 import 'package:neo_starrail_chatui/network/fake_socket.dart';
+import 'package:neo_starrail_chatui/page/container/navigator_top.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  LoginPage({super.key, required this.topState});
+
+  NavigatorTopState topState;
 
   @override
   State<StatefulWidget> createState() => LoginPageState();

@@ -29,18 +29,19 @@ class NavigatorTopState extends State<NavigatorTop> {
           surfaceTintColor: Colors.transparent),
       body: Navigator(
         key: navigatorKey,
-        onGenerateRoute: (RouteSettings settings) => genRoute(settings),
-      ),
+            onGenerateRoute: (RouteSettings settings) => genRoute(settings)),
       floatingActionButton: FloatingActionButton(onPressed: () {
         navigatorKey.currentState!.pushReplacementNamed("/");
-      }),
-    );
+        }));
   }
 
   PageRouteBuilder genRoute(RouteSettings settings) {
+    WidgetsBinding.instance.addPostFrameCallback((d) {
+      headerKey.currentState!.updateText(settings.name!, "autosetting");
+    });
     return genBuilder((BuildContext context) {
       if (settings.name == "/") {
-        return const LoginPage();
+        return LoginPage(topState: this);
       } else if (settings.name == "/logging") {
         return Scaffold(
             body: Center(

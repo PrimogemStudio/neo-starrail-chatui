@@ -12,6 +12,10 @@ class SrHeader extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => SrHeaderState();
+
+  static SrHeaderState? of(BuildContext context) {
+    return context.findAncestorStateOfType<SrHeaderState>();
+  }
 }
 
 class StaticCurve extends Curve {
